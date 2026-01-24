@@ -9,7 +9,3 @@ This landing page is a dedicated platform for Williams Racing fans, designed to 
 * **Google Fonts**: Utilizing technical typography to match the racing aesthetic.
 * **Javascript**: Implemented to handle interactive elements.
 
-## 2026 Driver Lineup
-* **Alex Albon**: "The Tire Whisperer" (45 Points).
-* **Carlos Sainz**: "Smooth Operator" (78 Points).
-* **Luke Browning**: "The Sleeper Cell" (2026 Prospect).
