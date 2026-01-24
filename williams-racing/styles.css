@@ -397,7 +397,7 @@ header h1 {
     inset 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-/* Add a sleek light-sweep effect on the card when hovering */
+/* Add a sleek light-sweep effect on the card when hovering taronga na shar ha*/
 .driver-card::after {
   content: "";
   position: absolute;
@@ -467,7 +467,7 @@ header h1 {
     );
   }
 }
-/*hoooo*/
+
 @keyframes subtlePulse {
   0%,
   100% {
