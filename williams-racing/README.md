@@ -13,7 +13,11 @@ This landing page is a dedicated platform for Williams Racing fans, designed to 
 
 ## Features
 
--**Animated hero section**: with moving F1 cars and gradient backgrounds -**Responsive driver cards**: with hover effects, equal-height layout, and interactive “View Profile” buttons -**Sticky navigation bar**: with smooth section linking for easy browsing -**Fan Hub section**: that personalizes the page with creator info and images -**Modern UI design**: using custom fonts, gradients, and subtle animations
+- **Animated hero section**: with moving F1 cars and gradient backgrounds
+- **Responsive driver cards**: with hover effects, equal-height layout, and interactive “View Profile” buttons
+- **Sticky navigation bar**: with smooth section linking for easy browsing
+- **Fan Hub section**: that personalizes the page with creator info and images
+- **Modern UI design**: using custom fonts, gradients, and subtle animations
 
 ## AI Assistance Disclosure
 
