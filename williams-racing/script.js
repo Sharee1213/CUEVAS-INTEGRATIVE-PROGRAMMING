@@ -2,39 +2,43 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. Elegant Staggered Entrance
   const observerOptions = {
     threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
+    rootMargin: "0px 0px -50px 0px",
   };
 
   const appearanceObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         // Find the index of the card among its siblings to delay it
-        const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
-        
+        const index = Array.from(entry.target.parentNode.children).indexOf(
+          entry.target,
+        );
+
         setTimeout(() => {
           entry.target.style.opacity = "1";
           entry.target.style.transform = "translateY(0)";
-        }, index * 100); 
+        }, index * 100);
 
         appearanceObserver.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  // Apply entrance logic to cards and titles
-  document.querySelectorAll(".driver-card, .stat-box, .section-title, .fact-card").forEach((el) => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(30px)";
-    el.style.transition = "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
-    appearanceObserver.observe(el);
-  });
+  // Apply entrance logic to cards and titles nah
+  document
+    .querySelectorAll(".driver-card, .stat-box, .section-title, .fact-card")
+    .forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(30px)";
+      el.style.transition = "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+      appearanceObserver.observe(el);
+    });
 
   // 2. Smooth Scroll Logic
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
       e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
+      document.querySelector(this.getAttribute("href")).scrollIntoView({
+        behavior: "smooth",
       });
     });
   });
@@ -47,10 +51,12 @@ function expandProfile(button) {
 
   if (card.classList.contains("expanded")) {
     button.textContent = "Close Profile";
-    button.style.background = "linear-gradient(135deg, #cc0000 0%, #990000 100%)";
+    button.style.background =
+      "linear-gradient(135deg, #cc0000 0%, #990000 100%)";
   } else {
     button.textContent = "View Profile";
-    button.style.background = "linear-gradient(135deg, #0066cc 0%, #0099ff 100%)";
+    button.style.background =
+      "linear-gradient(135deg, #0066cc 0%, #0099ff 100%)";
   }
 }
 // Update active nav link on scroll
@@ -115,7 +121,7 @@ function observeElements() {
     },
     {
       threshold: 0.1,
-    }
+    },
   );
 
   document.querySelectorAll(".section-title").forEach((title) => {
@@ -169,11 +175,13 @@ console.log("Driver data ready for interactive features.");
 // Initialize F1 speed indicators on page load
 // Replace your existing window load animation with this:
 window.addEventListener("load", () => {
-  const cards = document.querySelectorAll(".driver-card, .stat-box, .fact-card");
-  
+  const cards = document.querySelectorAll(
+    ".driver-card, .stat-box, .fact-card",
+  );
+
   const observerOptions = {
     threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
+    rootMargin: "0px 0px -50px 0px",
   };
 
   const appearanceObserver = new IntersectionObserver((entries) => {
@@ -183,7 +191,7 @@ window.addEventListener("load", () => {
         setTimeout(() => {
           entry.target.style.opacity = "1";
           entry.target.style.transform = "translateY(0)";
-        }, index * 100); 
+        }, index * 100);
         appearanceObserver.unobserve(entry.target);
       }
     });
