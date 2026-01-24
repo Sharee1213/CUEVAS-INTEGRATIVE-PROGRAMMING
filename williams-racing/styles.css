@@ -358,7 +358,7 @@ header h1 {
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   /* Use cubic-bezier for a "premium" physics feel */
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -392,7 +392,7 @@ header h1 {
 .driver-card:hover .driver-image {
   transform: scale(1.03); /* Subtle zoom */
   filter: brightness(1.1);
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(0, 102, 204, 0.3),
     inset 0 0 20px rgba(255, 255, 255, 0.1);
 }
@@ -467,15 +467,16 @@ header h1 {
     );
   }
 }
-
+/*hoooo*/
 @keyframes subtlePulse {
-  0%, 100% { 
+  0%,
+  100% {
     text-shadow: 0 0 0px rgba(0, 153, 255, 0);
     transform: scale(1);
   }
-  50% { 
+  50% {
     text-shadow: 0 0 15px rgba(0, 153, 255, 0.6);
-    transform: scale(1.03); 
+    transform: scale(1.03);
   }
 }
 
@@ -930,9 +931,9 @@ footer p {
   font-weight: 700;
   color: var(--light-blue);
   margin-bottom: 10px;
-  
+
   /* The Animation Magic */
-  display: inline-block; 
+  display: inline-block;
   animation: subtlePulse 4s infinite ease-in-out;
 }
 
