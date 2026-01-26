@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F1 Williams Racing Fan Hub</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <h1>ATLASSIAN WILLIAMS RACING</h1>
+        <p class="tagline">Peak Performance</p>
+      </div>
+    </header>
+
+    <nav class="navbar">
+      <a href="#home" class="nav-link active">About</a>
+      <a href="#drivers" class="nav-link">Drivers</a>
+      <a href="#team" class="nav-link">Team Principal</a>
+      <a href="#fan-hub" class="nav-link">Fan HQ </a>
+      <a href="login.html" class="nav-link login-btn">Login</a>
+    </nav>
+
+    <section id="home" class="hero">
+      <!-- Animated racing cars -->
+      <div class="racing-track">
+        <div class="f1-car car-1">🏎️</div>
+        <div class="f1-car car-2">🏎️</div>
+        <div class="f1-car car-3">🏎️</div>
+        <div class="f1-car car-4">🏎️</div>
+        <div class="f1-car car-5">🏎️</div>
+        <div class="f1-car car-6">🏎️</div>
+        <div class="f1-car car-7">🏎️</div>
+        <div class="f1-car car-8">🏎️</div>
+      </div>
+
+      <div class="hero-content">
+        <h2>A Legacy of Excellence in Formula 1</h2>
+        <p>Discover the power, passion, and precision of Williams Racing</p>
+        <a href="#about" class="cta-button">Discover More</a>
+      </div>
+    </section>
+
+    <!-- About Williams Racing Section -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <h2 class="section-title">Our Story</h2>
+        <div class="about-grid">
+          <div class="about-content">
+            <h3>A Legendary Heritage</h3>
+            <p>
+              Williams Racing is one of the most successful teams in Formula 1
+              history. Founded by Sir Frank Williams and Patrick Head in 1977,
+              the team has claimed
+              <strong>9 Constructors' Championships</strong> and
+              <strong>7 Drivers' Championships</strong>.
+            </p>
+            <p>
+              Based in Grove, Oxfordshire, Williams has been at the forefront of
+              innovation in motorsport for over four decades. The team continues
+              to push boundaries in engineering excellence while honoring its
+              rich heritage.
+            </p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-number">9</div>
+              <div class="stat-label">Constructors' Titles</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">7</div>
+              <div class="stat-label">Drivers' Titles</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">114</div>
+              <div class="stat-label">Race Wins</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">310</div>
+              <div class="stat-label">Podiums</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fun Facts -->
+        <div class="fun-facts-section">
+          <h3>Fun Facts</h3>
+          <div class="facts-grid">
+            <div class="fact-card">
+              <span class="fact-icon">🏆</span>
+              <p>
+                Williams won back-to-back World Championships in 1981 and 1986
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">⚡</span>
+              <p>
+                Ayrton Senna's iconic yellow helmet was used in a Williams F1
+                car
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">🔧</span>
+              <p>
+                Williams pioneered active suspension and traction control in F1
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">🌟</span>
+              <p>
+                The team has produced legendary drivers like Juan Manuel Fangio
+                and Nelson Piquet
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">🎯</span>
+              <p>Williams has over 46 years of continuous F1 participation</p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">🚀</span>
+              <p>
+                Consistently ranked as one of the top technical innovators in
+                motorsport
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="drivers" class="drivers-section">
+      <div class="container">
+        <h2 class="section-title">Meet Our Drivers</h2>
+        <p class="section-subtitle">The finest talent on the Formula 1 grid</p>
+        <div class="drivers-grid">
+          <!-- Driver 23 -->
+          <div class="driver-card">
+            <div class="driver-image">
+              <img
+                src="images/formalALBON.png"
+                alt="Alex Albon"
+                class="driver-pic"
+              />
+              <div class="driver-number">23</div>
+            </div>
+            <div class="driver-info">
+              <h3>Alex Albon</h3>
+              <p class="position">Driver 1</p>
+              <div class="stats">
+                <div class="stat">
+                  <span class="stat-label">Nationality</span>
+                  <span class="stat-value">Thailand</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Points</span>
+                  <span class="stat-number">45</span>
+                </div>
+              </div>
+              <p class="bio">
+                2026 Williams driver known for his strategic prowess and tire
+                management.
+                <strong>AKA:</strong> The Tire Whisperer 🛞<br />
+                <strong>Vibe:</strong> Looks like he's just happy to be here…
+                until he's defending P10 like it's a championship<br />
+                <strong>Special Skill:</strong> Making hard tires last longer
+                than most F1 relationships<br />
+                <strong>Energy:</strong> Golden-retriever smile, final-boss
+                defense
+              </p>
+              <button class="view-btn" onclick="expandProfile(this)">
+                View Profile
+              </button>
+            </div>
+          </div>
+
+          <!-- Driver 2 -->
+          <div class="driver-card">
+            <div class="driver-image">
+              <img
+                src="images/formalcarlos.png"
+                alt="Carlos Sainz Jr."
+                class="driver-pic"
+              />
+              <div class="driver-number">55</div>
+            </div>
+            <div class="driver-info">
+              <h3>Carlos Sainz Jr.</h3>
+              <p class="position">Driver 2</p>
+              <div class="stats">
+                <div class="stat">
+                  <span class="stat-label">Nationality</span>
+                  <span class="stat-value">Spain</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Points</span>
+                  <span class="stat-number">78</span>
+                </div>
+              </div>
+              <p class="bio">
+                2026 Williams driver known for his race IQ, calm radios, and
+                Plan Z execution.
+                <strong>AKA:</strong> Smooth Operator 🎶<br />
+                <strong>Vibe:</strong> Soft-spoken engineer energy… until
+                strategy chaos bends to his will<br />
+                <strong>Special Skill:</strong> Turning “this will be tricky”
+                into a podium-worthy masterclass<br />
+                <strong>Energy:</strong> Unbothered professor who always did the
+                homework
+              </p>
+              <button class="view-btn" onclick="expandProfile(this)">
+                View Profile
+              </button>
+            </div>
+          </div>
+
+          <!-- Driver 3 -->
+          <div class="driver-card">
+            <div class="driver-image">
+              <img
+                src="images/formalbrowning.jpg"
+                alt="Luke Browning"
+                class="driver-pic"
+              />
+              <div class="driver-number">46</div>
+            </div>
+            <div class="driver-info">
+              <h3>Luke Browning</h3>
+              <p class="position">Reserve Driver</p>
+              <div class="stats">
+                <div class="stat">
+                  <span class="stat-label">Nationality</span>
+                  <span class="stat-value">UK</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Experience</span>
+                  <span class="stat-value">2026</span>
+                </div>
+              </div>
+              <p class="bio">
+                2026 Williams prospect known for raw pace and adaptability.<br />
+                <strong>AKA:</strong> The Sleeper Cell 🕶️<br />
+                <strong>Vibe:</strong> Quiet rookie aura… then suddenly P8
+                exists<br />
+                <strong>Special Skill:</strong> Learning tracks fast and
+                overdelivering before the hype catches up<br />
+                <strong>Energy:</strong> Polite menace with main-character
+                potential
+              </p>
+              <button class="view-btn" onclick="expandProfile(this)">
+                View Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="team" class="team-section">
+      <div class="container">
+        <h2 class="section-title">Team Leadership</h2>
+        <div class="team-principal-section">
+          <div class="team-principal-content">
+            <div class="principal-image">
+              <img
+                src="images/vowles.jpg"
+                alt="James Vowles"
+                class="vowles-pic"
+              />
+            </div>
+            <div class="principal-info">
+              <h3>James Vowles</h3>
+              <p class="principal-title">Team Principal & CEO</p>
+              <div class="principal-quote">
+                <p>
+                  "Williams has an incredible heritage, and my goal is to
+                  restore this team to its rightful place at the front of the
+                  grid. We have the talent, the facilities, and the
+                  determination to make it happen."
+                </p>
+              </div>
+              <div class="principal-bio">
+                <p>
+                  James Vowles joined Williams Racing as Team Principal in
+                  February 2023, bringing over 20 years of experience in Formula
+                  1. Previously serving as Chief Strategist at Mercedes-AMG
+                  Petronas, James was instrumental in their unprecedented
+                  success, contributing to eight consecutive Constructors'
+                  Championships.
+                </p>
+                <p>
+                  Under his leadership, Williams is undergoing a comprehensive
+                  transformation, focusing on infrastructure upgrades, talent
+                  acquisition, and a renewed commitment to engineering
+                  excellence.
+                </p>
+              </div>
+              <div class="principal-stats">
+                <div class="p-stat stat-box">
+                  <span class="p-stat-number stat-number">20+</span>
+                  <span class="p-stat-label">Years in F1</span>
+                </div>
+                <div class="p-stat stat-box">
+                  <span class="p-stat-number stat-number">8</span>
+                  <span class="p-stat-label">Championship Titles</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-overview-section">
+      <div class="container">
+        <h2 class="section-title">Why Williams?</h2>
+        <div class="team-grid">
+          <div class="team-card">
+            <h3>🏆 Heritage</h3>
+            <p>
+              Founded in 1977, Williams Racing has won 9 Constructors'
+              Championships and is a legendary force in motorsport.
+            </p>
+          </div>
+          <div class="team-card">
+            <h3>🚀 Innovation</h3>
+            <p>
+              Cutting-edge technology and aerodynamic excellence drive our
+              competitive advantage on track.
+            </p>
+          </div>
+          <div class="team-card">
+            <h3>👥 Teamwork</h3>
+            <p>
+              A dedicated team of engineers, technicians, and support staff
+              working towards peak performance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fan-hub" class="fan-hub-section">
+      <div class="container">
+        <h2 class="section-title">Fan Hub: Meet the Creator</h2>
+        <div class="fan-hub-content">
+          <div class="fan-hub-profile">
+            <div class="fan-hub-left">
+              <h3>Sharee Angela Cuevas</h3>
+              <p class="fan-role">Williams Racing Fan Manager</p>
+              <div class="fan-hub-image">
+                <img
+                  src="images/sendoy2.png"
+                  alt="Fan Manager"
+                  class="fan-pic"
+                />
+              </div>
+            </div>
+            <div class="fan-hub-right">
+              <div class="fan-stats">
+                <div class="fan-stat fan-stat-with-image">
+                  <span class="fan-stat-label">Favorite Driver</span>
+                  <img
+                    src="images/carlito.jpg"
+                    alt="Carlos Sainz"
+                    class="stat-image"
+                  />
+                  <span class="fan-stat-value">Carlos Sainz</span>
+                </div>
+                <div class="fan-stat fan-stat-with-image">
+                  <span class="fan-stat-label">Favorite Williams Car</span>
+                  <img
+                    src="images/weeeyums-front.jpg"
+                    alt="FW46"
+                    class="stat-image"
+                  />
+                  <span class="fan-stat-value">FW46</span>
+                </div>
+                <div class="fan-stat fan-stat-with-image">
+                  <span class="fan-stat-label">Fan Since</span>
+                  <img
+                    src="images/carlosinrenault.jpg"
+                    alt="Carlos in Renault"
+                    class="stat-image"
+                  />
+                  <span class="fan-stat-value"
+                    >The day #55 captured my attention</span
+                  >
+                </div>
+                <div class="fan-stat fan-stat-with-image">
+                  <span class="fan-stat-label">Favorite Track</span>
+                  <img
+                    src="images/MonacoGP.jpg"
+                    alt="Monaco GP"
+                    class="track-image"
+                  />
+                  <span class="fan-stat-value">Monaco Grand Prix</span>
+                </div>
+                <div class="fan-stat fan-stat-with-image">
+                  <span class="fan-stat-label">Best Williams Memory</span>
+                  <img
+                    src="images/firstpodium.png"
+                    alt="First Podium"
+                    class="stat-image"
+                  />
+                  <span class="fan-stat-value"
+                    >Carlos' first podium at the 2025 Azerbaijan Grand Prix in
+                    Baku</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="manager-mission">
+            "My mission is to document the journey of the Williams Blue Era and
+            provide a home for fans who bleed racing blue. Whether we're
+            fighting for points or rebuilding for the future, we do it together.
+            From the roaring engines on the grid to the strategic brilliance in
+            the paddock, every moment matters. This platform celebrates the
+            legacy of Williams Racing—a team that has defined motorsport
+            excellence for generations. Here, fans unite to share our passion,
+            analyze every race, cherish every victory, and stand together
+            through every challenge. Because being a Williams fan means more
+            than just supporting a team; it means believing in a vision of peak
+            performance, innovation, and the pure spirit of racing. Vamos,
+            weeeyums!"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div class="container">
+        <h3>Connect with the Fan Manager</h3>
+        <p>
+          For inquiries, fan club information, or race-day updates, reach out:
+        </p>
+        <p>Email: cuevasshareeangela@gmail.com</p>
+        <div class="social-links">
+          <a
+            href="https://www.facebook.com/Shareeeeeshi/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon"
+            title="Follow on Facebook"
+          >
+            <img
+              src="images/facebook.jpg"
+              alt="Facebook"
+              class="social-icon-image"
+            />
+          </a>
+          <a
+            href="https://www.instagram.com/shareeeshi/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon"
+            title="Follow on Instagram"
+          >
+            <img
+              src="images/instagram.avif"
+              alt="Instagram"
+              class="social-icon-image"
+            />
+          </a>
+          <a
+            href="https://discord.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon"
+            title="Join Discord Community"
+          >
+            <img
+              src="images/discord.png"
+              alt="Discord"
+              class="social-icon-image"
+            />
+          </a>
+        </div>
+        <p>&copy; 2026 Atlassian Williams Racing Fan Hub | Sharee Angela</p>
+        <div class="disclaimer">
+          <p>
+            <strong>Disclaimer:</strong> This website is an unofficial fan
+            project and is not affiliated with, endorsed by, or connected to
+            Williams Grand Prix Engineering Limited or any of its sponsors. All
+            Williams Racing logos, trademarks, and assets belong to their
+            respective owners. This site is for informative, educational, and
+            community purposes only.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
