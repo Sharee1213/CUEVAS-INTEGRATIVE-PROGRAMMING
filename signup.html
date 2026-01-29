@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<htm lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,7 +23,7 @@
         border-radius: 10px;
         backdrop-filter: blur(10px);
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        width: 100%;
+        width: 90%;
         max-width: 400px;
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -69,32 +69,89 @@
       .home-link {
         display: block;
         margin-top: 20px;
-        color: #aaa;
+        color: #0ce71e;
         text-decoration: none;
+        transition: 0.3s ease-in-out;
+      }
+      .home-link:hover {
+        text-decoration: underline !important;
+        color: #0ce71e !important; /* Optional: turns white to make the underline obvious */
+      }
+
+       input.error-border {
+        border: 2px solid #ff4d4d !important;
+        outline: none;
+        background: rgba(255, 77, 77, 0.1); 
+        color: #ff4d4d !important; /* This changes the typed text to Red */
+      }
+       input.success-border {
+        border: 2px solid #0ce71e !important;
+        color: #0ce71e !important; /* Turns text Green when valid */
+        background: rgba(12, 231, 30, 0.05);
       }
     </style>
   </head>
+
   <body>
+    <div class="bg-motion"></div>
+
     <div class="form-container">
       <h2>Join the Paddock</h2>
       <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #ccc;">
         Create your account to get exclusive updates.
       </p>
 
-      <form action="login.html">
+    <form action="index.html">
         <input type="text" placeholder="Full Name" required />
-        <input type="email" placeholder="Email Address" required />
+        
+        <div style="text-align: left; width: 90%; margin: 0 auto;">
+        <input 
+            type="email" 
+            id="emailInput"
+            placeholder="Email address" 
+            style="width: 100%; margin-bottom: 5px;"
+            required 
+        />
+        <p id="emailError" style="color: #ff4d4d; font-size: 0.75rem; display: none; margin-bottom: 10px;">
+            Please enter a valid email address.
+        </p>
+        </div>
         <input type="password" placeholder="Password" required />
         <input type="password" placeholder="Confirm Password" required />
-
+        
         <button type="submit" class="submit-btn">REGISTER AS FAN</button>
-      </form>
+    </form>
 
       <div class="links">
         <p>Already a member? <a href="login.html">Login here</a></p>
       </div>
 
-      <a href="index.html" class="home-link">← Back to Track</a>
+      <a href="index.html" class="home-link">Back to Track</a>
     </div>
+
+    <script>
+  const emailInput = document.getElementById('emailInput');
+  const emailError = document.getElementById('emailError');
+
+  // Replace your old event listener with this entire block:
+  emailInput.addEventListener('input', (e) => {
+    const value = e.target.value;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (value === "") {
+      emailInput.classList.remove('error-border', 'success-border');
+      emailError.style.display = 'none';
+    } else if (!emailPattern.test(value)) {
+      emailInput.classList.add('error-border');
+      emailInput.classList.remove('success-border');
+      emailError.style.display = 'block';
+    } else {
+      // Handles the Success state
+      emailInput.classList.remove('error-border');
+      emailInput.classList.add('success-border');
+      emailError.style.display = 'none';
+    }
+  });
+</script>
   </body>
 </html>

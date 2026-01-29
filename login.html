@@ -6,8 +6,9 @@
     <title>Login - Williams Racing Fan Hub</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
-      /* Page specific styles for the form */
+      
       body {
+  
         background-color: #041e42; /* Williams Blue base */
         color: white;
         font-family: Arial, sans-serif;
@@ -23,7 +24,7 @@
         border-radius: 10px;
         backdrop-filter: blur(10px);
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        width: 100%;
+        width: 90%;
         max-width: 400px;
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -69,25 +70,83 @@
       .home-link {
         display: block;
         margin-top: 20px;
-        color: #aaa;
+        color: #0ce71e;
         text-decoration: none;
+        transition: 0.3s ease-in-out;
       }
+      .home-link:hover {
+        text-decoration: underline !important;
+        color: #0ce71e !important; /* Optional: turns white to make the underline obvious */
+      }
+      input.error-border {
+        border: 2px solid #ff4d4d !important;
+        color: #ff4d4d !important;
+        outline: none;
+        background: rgba(255, 77, 77, 0.1) !important;
+      }
+      input.success-border {
+        border: 2px solid #0ce71e !important;
+        color: #0ce71e !important;
+        background: rgba(12, 231, 30, 0.05) !important;
+        outline: none;
+      }
+        /*Hover effects for home link*/
+      
     </style>
   </head>
   <body>
-    <div class="form-container">
-      <h2>Fan Hub Login</h2>
-      <form action="index.html">
-        <input type="email" placeholder="Email Address" required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit" class="submit-btn">ENTER PADDOCK</button>
-      </form>
+  <div class="bg-motion"></div>
 
-      <div class="links">
-        <p>New to the team? <a href="signup.html">Create an Account</a></p>
+  <div class="form-container">
+    <h2>Fan Hub Login</h2>
+    
+    <form action="index.html">
+      <div style="text-align: left; width: 100%; margin: 0 auto;">
+        <input 
+          type="email" 
+          id="loginEmail" 
+          placeholder="Email Address" 
+          style="width: 100%; margin-bottom: 5px;" 
+          required 
+        />
+        <p id="loginError" style="color: #ff4d4d; font-size: 0.75rem; display: none; margin-bottom: 10px;">
+          Please enter a valid email.
+        </p>
       </div>
 
-      <a href="index.html" class="home-link">← Back to Track</a>
+      <input type="password" placeholder="Password" style="width: 100%;" required />
+      
+      <button type="submit" class="submit-btn">ENTER PADDOCK</button>
+    </form>
+
+    <div class="links">
+      <p>New to the team? <a href="signup.html">Create an Account</a></p>
     </div>
-  </body>
+
+    <a href="index.html" class="home-link">Back to Track</a>
+  </div>
+
+  <script>
+    const emailInput = document.getElementById('loginEmail');
+    const emailError = document.getElementById('loginError');
+
+    emailInput.addEventListener('input', (e) => {
+      const value = e.target.value;
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      if (value === "") {
+        emailInput.classList.remove('error-border', 'success-border');
+        emailError.style.display = 'none';
+      } else if (!emailPattern.test(value)) {
+        emailInput.classList.add('error-border');
+        emailInput.classList.remove('success-border');
+        emailError.style.display = 'block';
+      } else {
+        emailInput.classList.remove('error-border');
+        emailInput.classList.add('success-border');
+        emailError.style.display = 'none';
+      }
+    });
+  </script>
+</body>
 </html>
