@@ -1,6 +1,6 @@
 # Atlassian Williams Racing Fan Hub
 
-## ACTIVITY 1 - January 21,2026
+## ACTIVITY 1 - January 21, 2026
 
 ## Landing Page
 
@@ -13,7 +13,7 @@ This landing page is a dedicated platform for Williams Racing fans, designed to 
 - **HTML**: For semantic page structure.
 - **CSS**: For the dark-themed UI, glowing card effects, and responsive layouts.
 - **Google Fonts**: Utilizing technical typography to match the racing aesthetic.
-- **Javascript**: Implemented to handle interactive elements.
+- **JavaScript**: Implemented to handle interactive elements.
 
 ## Features
 
@@ -33,7 +33,7 @@ I learned that technology is a partnership of patience, and I realized that whil
 
 ## ACTIVITY 2
 
-## Login and Sign up Linking
+## Login and Sign-up Linking
 
 ## Description
 
@@ -44,7 +44,7 @@ This landing page is a dedicated platform for Williams Racing fans, designed to 
 - **HTML**: For semantic page structure.
 - **CSS**: For the dark-themed UI, glowing card effects, and responsive layouts.
 - **Google Fonts**: Utilizing technical typography to match the racing aesthetic.
-- **Javascript**: Implemented to handle interactive elements.
+- **JavaScript**: Implemented to handle interactive elements.
 
 ## Features
 
