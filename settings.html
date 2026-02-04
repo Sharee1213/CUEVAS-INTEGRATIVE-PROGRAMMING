@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | Williams Racing Fan Hub</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Specific tweaks for form inputs inside the dark glass container */
+      input,
+      select {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0 20px 0;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--primary-blue);
+        color: white;
+        border-radius: 5px;
+        font-family: var(--body-font);
+      }
+      label {
+        color: var(--light-blue);
+        font-family: var(--heading-font);
+        font-size: 0.8em;
+        letter-spacing: 1px;
+        display: block;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-motion" style="background-image: url(images/Wee.png)"></div>
+
+    <nav class="navbar">
+      <a href="profile.html" class="nav-link">← Back to Profile</a>
+    </nav>
+
+    <div
+      class="form-container"
+      style="max-width: 500px; margin: 50px auto; padding: 40px"
+    >
+      <h2 class="section-title" style="font-size: 1.8em">Settings</h2>
+
+      <form>
+        <label>Update Email</label>
+        <input type="email" placeholder="cuevasshareeangela@gmail.com" />
+
+        <label>Change Address</label>
+        <input type="text" placeholder="Tagbilaran City, Philippines" />
+
+        <label>New Password</label>
+        <input type="password" placeholder="••••••••" />
+
+        <label>Interface Theme</label>
+        <select>
+          <option>Williams Racing Dark (Default)</option>
+          <option>Heritage White</option>
+          <option>Gulf Livery Special</option>
+        </select>
+
+        <button
+          type="button"
+          class="cta-button"
+          style="width: 100%; border: none; cursor: pointer"
+        >
+          Save Configurations
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

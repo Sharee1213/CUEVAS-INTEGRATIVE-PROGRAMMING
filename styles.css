@@ -1567,3 +1567,7 @@ footer p {
     width: 100% !important;
   }
 }
+/*FOR PROFILE PAGE*/
+.profile-bg {
+  background-image: url("images/weeyums.jpg") !important;
+}
