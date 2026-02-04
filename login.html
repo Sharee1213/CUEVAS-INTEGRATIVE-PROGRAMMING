@@ -6,18 +6,43 @@
     <title>Login - Williams Racing Fan Hub</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
-      /* Page specific styles for the form */
+      /* Page specific styles */
       body {
-        background-color: #041e42; /* Williams Blue base */
-        color: white;
+        margin: 0;
+        padding: 0;
         font-family: Arial, sans-serif;
+        height: 100vh;
+        overflow: hidden; /* Stops scrollbars from appearing */
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        margin: 0;
       }
+
+      /* 1. THE VIDEO BACKGROUND */
+      #bg-video {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -2; /* Puts it way in the back */
+        object-fit: cover;
+      }
+
+      /* 2. THE BLUE TINT OVERLAY */
+      /* This darkens the video so your form pops out */
+      .video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(4, 30, 66, 0.75); /* Williams Blue with transparency */
+        z-index: -1; /* Behind the form, but in front of the video */
+      }
+
       .form-container {
+        position: relative;
         background: rgba(255, 255, 255, 0.1);
         padding: 2rem;
         border-radius: 10px;
@@ -27,7 +52,9 @@
         max-width: 400px;
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 1; /* Ensures form sits on top of everything */
       }
+
       h2 {
         margin-bottom: 1.5rem;
         color: #00a0df;
@@ -58,6 +85,7 @@
       .links {
         margin-top: 15px;
         font-size: 0.9rem;
+        color: white;
       }
       .links a {
         color: #00a0df;
@@ -75,6 +103,12 @@
     </style>
   </head>
   <body>
+    <video autoplay muted loop id="bg-video">
+      <source src="images/racebg.mp4" type="video/mp4" />
+    </video>
+
+    <div class="video-overlay"></div>
+
     <div class="form-container">
       <h2>Fan Hub Login</h2>
       <form action="index.html">
