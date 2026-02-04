@@ -3,7 +3,9 @@
 ## ACTIVITY 1 January 21, 2026
 
 🔹 **Activity name**: Landing Page.
+
 🔹 **Description**: This landing page is a dedicated platform for Williams Racing fans, designed to celebrate the team's rich Formula 1 heritage and document the "Williams Blue Era." It serves as a central hub for supporters to explore team history, view current driver profiles like Alex Albon and Carlos Sainz, and connect with the Fan Manager, Sharee Angela Cuevas. The project solves the need for a community-focused space where fans can unite to analyze races and cherish the legacy of one of motorsport's most iconic technical innovators.
+
 🔹 **Technologies Used**: HTML, CSS, Google Fonts, JavaScript.
 
 🔹 **Features**:
@@ -15,18 +17,17 @@
 - Modern UI design: using custom fonts, gradients, and subtle animations
 
 🔹 **AI Assistance Disclosure**
-Answer honestly: Did you use AI tools? **Yes**
-
-If YES, specify: I used ChatGPT, Google Gemini, and GitHub Copilot to assist with syntax suggestions, CSS refinements, animation ideas, and minor debugging. The overall concept, design direction, layout structure, and creative decisions were critically thought out and designed by me, and all generated suggestions were reviewed and adapted to fit my vision.
+I used ChatGPT, Google Gemini, and GitHub Copilot to assist with syntax suggestions, CSS refinements, animation ideas, and minor debugging. The overall concept, design direction, layout structure, and creative decisions were critically thought out and designed by me, and all generated suggestions were reviewed and adapted to fit my vision.
 
 🔹 **Learning Reflection**
-Answer briefly: I learned that technology is a partnership of patience, and I realized that while AI has immense power, it is useless without my specific intent and human touch. Most importantly, I learned that being a beginner requires a specific kind of humility—the willingness to be wrong and the courage to keep refining my ideas until they finally match my vision. The most challenging part was managing the gap between my imagination and the technical reality; it’s quite frustrating when you have a beautiful concept in your head, but you lack the digital vocabulary to make the AI understand it.
+I learned that technology is a partnership of patience, and I realized that while AI has immense power, it is useless without my specific intent and human touch. Most importantly, I learned that being a beginner requires a specific kind of humility—the willingness to be wrong and the courage to keep refining my ideas until they finally match my vision. The most challenging part was managing the gap between my imagination and the technical reality; it’s quite frustrating when you have a beautiful concept in your head, but you lack the digital vocabulary to make the AI understand it.
 
 ---
 
 ## ACTIVITY 2
 
 🔹 **Activity name**: Login and Signup page linking
+
 🔹 **Description**: This landing page is a dedicated platform for Williams Racing fans, designed to celebrate the team's rich Formula 1 heritage and document the "Williams Blue Era." It serves as a central hub for supporters to explore team history, view current driver profiles like Alex Albon and Carlos Sainz, and connect with the Fan Manager, Sharee Angela Cuevas. The project solves the need for a community-focused space where fans can unite to analyze races and cherish the legacy of one of motorsport's most iconic technical innovators.
 
 🔹 **Features**:
@@ -36,18 +37,17 @@ Answer briefly: I learned that technology is a partnership of patience, and I re
 - Sticky navigation bar: with smooth section linking for easy browsing
 
 🔹 **AI Assistance Disclosure**
-Answer honestly: Did you use AI tools? **Yes**
-
-If YES, specify: I used ChatGPT, Google Gemini, and GitHub Copilot to assist with syntax suggestions, CSS refinements, animation ideas, and minor debugging. The overall concept, design direction, layout structure, and creative decisions were critically thought out and designed by me, and all generated suggestions were reviewed and adapted to fit my vision.
+I used ChatGPT, Google Gemini, and GitHub Copilot to assist with syntax suggestions, CSS refinements, animation ideas, and minor debugging. The overall concept, design direction, layout structure, and creative decisions were critically thought out and designed by me, and all generated suggestions were reviewed and adapted to fit my vision.
 
 🔹 **Learning Reflection**
-Answer briefly: I learned that technology is a partnership of patience, and I realized that while AI has immense power, it is useless without my specific intent and human touch. Most importantly, I learned that being a beginner requires a specific kind of humility—the willingness to be wrong and the courage to keep refining my ideas until they finally match my vision. The most challenging part was managing the gap between my imagination and the technical reality.
+I learned that technology is a partnership of patience, and I realized that while AI has immense power, it is useless without my specific intent and human touch. Most importantly, I learned that being a beginner requires a specific kind of humility—the willingness to be wrong and the courage to keep refining my ideas until they finally match my vision. The most challenging part was managing the gap between my imagination and the technical reality.
 
 ---
 
 ## ACTIVITY 3
 
 🔹 **Activity name**: Profile and Settings Page
+
 🔹 **Description**: This landing page is a dedicated platform for Williams Racing fans, designed to celebrate the team's rich Formula 1 heritage and document the "Williams Blue Era." It serves as a central hub for supporters to explore team history, view current driver profiles like Alex Albon and Carlos Sainz, and connect with the Fan Manager, Sharee Angela Cuevas. The project solves the need for a community-focused space where fans can unite to analyze races and cherish the legacy of one of motorsport's most iconic technical innovators.
 
 🔹 **Features**:
@@ -57,9 +57,7 @@ Answer briefly: I learned that technology is a partnership of patience, and I re
 - Custom Driver ID Profile card and Settings interface
 
 🔹 **AI Assistance Disclosure**
-Answer honestly: Did you use AI tools? **Yes**
-
-If YES, specify: I used ChatGPT, Google Gemini, and GitHub Copilot to assist with syntax suggestions, CSS refinements, animation ideas, and minor debugging. The overall concept, design direction, layout structure, and creative decisions were critically thought out and designed by me, and all generated suggestions were reviewed and adapted to fit my vision.
+I used ChatGPT, Google Gemini, and GitHub Copilot to assist with syntax suggestions, CSS refinements, animation ideas, and minor debugging. The overall concept, design direction, layout structure, and creative decisions were critically thought out and designed by me, and all generated suggestions were reviewed and adapted to fit my vision.
 
 🔹 **Learning Reflection**
-Answer briefly: I learned that technology is a partnership of patience, and I realized that while AI has immense power, it is useless without my specific intent and human touch. Most importantly, I learned that being a beginner requires a specific kind of humility—the willingness to be wrong and the courage to keep refining my ideas until they finally match my vision. The most challenging part was managing the gap between my imagination and the technical reality.
+I learned that technology is a partnership of patience, and I realized that while AI has immense power, it is useless without my specific intent and human touch. Most importantly, I learned that being a beginner requires a specific kind of humility—the willingness to be wrong and the courage to keep refining my ideas until they finally match my vision. The most challenging part was managing the gap between my imagination and the technical reality.
