@@ -6,18 +6,9 @@
     <title>Login - Williams Racing Fan Hub</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
-<<<<<<< HEAD
-      /* Page specific styles */
       body {
-        margin: 0;
-        padding: 0;
-=======
-      
-      body {
-  
         background-color: #041e42; /* Williams Blue base */
         color: white;
->>>>>>> 120f3ad5e2a2a58960c0dd4d755021e9aa098f1f
         font-family: Arial, sans-serif;
         height: 100vh;
         overflow: hidden; /* Stops scrollbars from appearing */
@@ -125,79 +116,75 @@
         background: rgba(12, 231, 30, 0.05) !important;
         outline: none;
       }
-        /*Hover effects for home link*/
-      
+      /*Hover effects for home link*/
     </style>
   </head>
   <body>
-<<<<<<< HEAD
-    <video autoplay muted loop id="bg-video">
-      <source src="images/racebg.mp4" type="video/mp4" />
-    </video>
-
-    <div class="video-overlay"></div>
+    <div class="bg-motion"></div>
 
     <div class="form-container">
       <h2>Fan Hub Login</h2>
+
       <form action="index.html">
-        <input type="email" placeholder="Email Address" required />
-        <input type="password" placeholder="Password" required />
+        <div style="text-align: left; width: 100%; margin: 0 auto">
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="Email Address"
+            style="width: 100%; margin-bottom: 5px"
+            required
+          />
+          <p
+            id="loginError"
+            style="
+              color: #ff4d4d;
+              font-size: 0.75rem;
+              display: none;
+              margin-bottom: 10px;
+            "
+          >
+            Please enter a valid email.
+          </p>
+        </div>
+
+        <input
+          type="password"
+          placeholder="Password"
+          style="width: 100%"
+          required
+        />
+
         <button type="submit" class="submit-btn">ENTER PADDOCK</button>
       </form>
-=======
-  <div class="bg-motion"></div>
->>>>>>> 120f3ad5e2a2a58960c0dd4d755021e9aa098f1f
 
-  <div class="form-container">
-    <h2>Fan Hub Login</h2>
-    
-    <form action="index.html">
-      <div style="text-align: left; width: 100%; margin: 0 auto;">
-        <input 
-          type="email" 
-          id="loginEmail" 
-          placeholder="Email Address" 
-          style="width: 100%; margin-bottom: 5px;" 
-          required 
-        />
-        <p id="loginError" style="color: #ff4d4d; font-size: 0.75rem; display: none; margin-bottom: 10px;">
-          Please enter a valid email.
-        </p>
+      <div class="links">
+        <p>New to the team? <a href="signup.html">Create an Account</a></p>
       </div>
 
-      <input type="password" placeholder="Password" style="width: 100%;" required />
-      
-      <button type="submit" class="submit-btn">ENTER PADDOCK</button>
-    </form>
-
-    <div class="links">
-      <p>New to the team? <a href="signup.html">Create an Account</a></p>
+      <a href="index.html" class="home-link">Back to Track</a>
     </div>
 
-    <a href="index.html" class="home-link">Back to Track</a>
-  </div>
+    <script>
+      const emailInput = document.getElementById("loginEmail");
+      const emailError = document.getElementById("loginError");
 
-  <script>
-    const emailInput = document.getElementById('loginEmail');
-    const emailError = document.getElementById('loginError');
+      emailInput.addEventListener("input", (e) => {
+        const value = e.target.value;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    emailInput.addEventListener('input', (e) => {
-      const value = e.target.value;
-      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-      if (value === "") {
-        emailInput.classList.remove('error-border', 'success-border');
-        emailError.style.display = 'none';
-      } else if (!emailPattern.test(value)) {
-        emailInput.classList.add('error-border');
-        emailInput.classList.remove('success-border');
-        emailError.style.display = 'block';
-      } else {
-        emailInput.classList.remove('error-border');
-        emailInput.classList.add('success-border');
-        emailError.style.display = 'none';
-      }
-    });
-  </script>
-</body>
+        if (value === "") {
+          emailInput.classList.remove("error-border", "success-border");
+          emailError.style.display = "none";
+        } else if (!emailPattern.test(value)) {
+          emailInput.classList.add("error-border");
+          emailInput.classList.remove("success-border");
+          emailError.style.display = "block";
+        } else {
+          emailInput.classList.remove("error-border");
+          emailInput.classList.add("success-border");
+          emailError.style.display = "none";
+        }
+      });
+    </script>
+  </body>
 </html>
