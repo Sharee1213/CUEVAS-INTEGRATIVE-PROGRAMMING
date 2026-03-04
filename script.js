@@ -253,3 +253,17 @@ function initPasswordValidation() {
     }
   };
 }
+
+// 4. Toggle Password Visibility Logic
+window.toggleVisibility = function (id) {
+  const input = document.getElementById(id);
+  const icon = input.nextElementSibling;
+
+  if (input.type === "password") {
+    input.type = "text";
+    icon.textContent = "🙈"; // Hide icon
+  } else {
+    input.type = "password";
+    icon.textContent = "👁️"; // Show icon
+  }
+};
