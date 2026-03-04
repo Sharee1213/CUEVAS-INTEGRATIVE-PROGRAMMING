@@ -207,3 +207,48 @@ window.addEventListener("load", () => {
 
 // Log viewport statistics
 console.log(`Viewport: ${window.innerWidth}x${window.innerHeight}`);
+
+// New function for Password Validation
+function initPasswordValidation() {
+  const form = document.getElementById("registrationForm");
+  const passInput = document.getElementById("password");
+  const confirmInput = document.getElementById("confirm_password");
+  const lengthNote = document.getElementById("length-note");
+  const matchNote = document.getElementById("match-note");
+
+  // Only run this if we are actually on the Signup page (where the form exists)
+  if (!form || !passInput) return;
+
+  function validate() {
+    const pass = passInput.value;
+    const confirm = confirmInput.value;
+
+    // 1. Check Strength
+    const isLongEnough = pass.length >= 8;
+    lengthNote.style.color = isLongEnough ? "#0ce71e" : "#ff4d4d";
+    lengthNote.innerHTML = isLongEnough
+      ? "✓ Min. 8 characters"
+      : "● Min. 8 characters";
+
+    // 2. Check Match
+    const isMatch = pass === confirm && pass !== "";
+    matchNote.style.color = isMatch ? "#0ce71e" : "#ff4d4d";
+    matchNote.innerHTML = isMatch
+      ? "✓ Passwords match"
+      : "● Passwords must match";
+
+    return isLongEnough && isMatch;
+  }
+
+  passInput.addEventListener("input", validate);
+  confirmInput.addEventListener("input", validate);
+
+  form.onsubmit = function (event) {
+    if (!validate()) {
+      event.preventDefault();
+      alert(
+        "Hold up! Check your password requirements before hitting the track.",
+      );
+    }
+  };
+}
