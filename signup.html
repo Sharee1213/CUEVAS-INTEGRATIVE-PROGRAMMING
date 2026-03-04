@@ -117,8 +117,15 @@
             </p>
         </div>
 
-        <input type="password" id="password" placeholder="Password" required />
-        <input type="password" id="confirm_password" placeholder="Confirm Password" required />
+        <div class="password-wrapper" style="position: relative; width: 100%;">
+            <input type="password" id="password" placeholder="Password" required style="width: 100%; box-sizing: border-box;" />
+            <span class="toggle-password" onclick="toggleVisibility('password')" style="position: absolute; right: 15px; top: 18px; cursor: pointer; color: #00a0df; font-size: 1.2rem;">👁️</span>
+        </div>
+
+        <div class="password-wrapper" style="position: relative; width: 100%;">
+            <input type="password" id="confirm_password" placeholder="Confirm Password" required style="width: 100%; box-sizing: border-box;" />
+            <span class="toggle-password" onclick="toggleVisibility('confirm_password')" style="position: absolute; right: 15px; top: 18px; cursor: pointer; color: #00a0df; font-size: 1.2rem;">👁️</span>
+        </div>
         
         <div id="passwordStatus" style="text-align: left; width: 90%; margin: 0 auto; font-size: 0.75rem;">
             <p id="lengthNote" style="color: #ff4d4d; margin: 5px 0;">● Min. 8 characters</p>
