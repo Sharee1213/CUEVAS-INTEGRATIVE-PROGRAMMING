@@ -101,57 +101,106 @@
         Create your account to get exclusive updates.
       </p>
 
-    <form action="index.html">
+    <form id="registrationForm" action="index.html">
         <input type="text" placeholder="Full Name" required />
         
         <div style="text-align: left; width: 90%; margin: 0 auto;">
-        <input 
-            type="email" 
-            id="emailInput"
-            placeholder="Email address" 
-            style="width: 100%; margin-bottom: 5px;"
-            required 
-        />
-        <p id="emailError" style="color: #ff4d4d; font-size: 0.75rem; display: none; margin-bottom: 10px;">
-            Please enter a valid email address.
-        </p>
+            <input 
+                type="email" 
+                id="emailInput"
+                placeholder="Email address" 
+                style="width: 100%; margin-bottom: 5px;"
+                required 
+            />
+            <p id="emailError" style="color: #ff4d4d; font-size: 0.75rem; display: none; margin-bottom: 10px;">
+                Please enter a valid email address.
+            </p>
         </div>
-        <input type="password" placeholder="Password" required />
-        <input type="password" placeholder="Confirm Password" required />
+
+        <input type="password" id="password" placeholder="Password" required />
+        <input type="password" id="confirm_password" placeholder="Confirm Password" required />
+        
+        <div id="passwordStatus" style="text-align: left; width: 90%; margin: 0 auto; font-size: 0.75rem;">
+            <p id="lengthNote" style="color: #ff4d4d; margin: 5px 0;">● Min. 8 characters</p>
+            <p id="matchNote" style="color: #ff4d4d; margin: 5px 0;">● Passwords must match</p>
+        </div>
         
         <button type="submit" class="submit-btn">REGISTER AS FAN</button>
-    </form>
+      </form>
 
-      <div class="links">
+    <div class="links">
         <p>Already a member? <a href="login.html">Login here</a></p>
-      </div>
-
-      <a href="index.html" class="home-link">Back to Track</a>
     </div>
 
+    <a href="index.html" class="home-link">Back to Track</a>
+  </div>
+
     <script>
-  const emailInput = document.getElementById('emailInput');
-  const emailError = document.getElementById('emailError');
+    const form = document.getElementById('registrationForm');
+    const emailInput = document.getElementById('emailInput');
+    const emailError = document.getElementById('emailError');
+    const passInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirm_password');
+    
+    const lengthNote = document.getElementById('lengthNote');
+    const matchNote = document.getElementById('matchNote');
 
-  // Replace your old event listener with this entire block:
-  emailInput.addEventListener('input', (e) => {
-    const value = e.target.value;
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    // 1. Email Validation Logic
+    function validateEmail() {
+        const value = emailInput.value;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const isValid = emailPattern.test(value);
 
-    if (value === "") {
-      emailInput.classList.remove('error-border', 'success-border');
-      emailError.style.display = 'none';
-    } else if (!emailPattern.test(value)) {
-      emailInput.classList.add('error-border');
-      emailInput.classList.remove('success-border');
-      emailError.style.display = 'block';
-    } else {
-      // Handles the Success state
-      emailInput.classList.remove('error-border');
-      emailInput.classList.add('success-border');
-      emailError.style.display = 'none';
+        if (value === "") {
+            emailInput.classList.remove('error-border', 'success-border');
+            emailError.style.display = 'none';
+            return false;
+        } else if (!isValid) {
+            emailInput.classList.add('error-border');
+            emailInput.classList.remove('success-border');
+            emailError.style.display = 'block';
+            return false;
+        } else {
+            emailInput.classList.remove('error-border');
+            emailInput.classList.add('success-border');
+            emailError.style.display = 'none';
+            return true;
+        }
     }
-  });
+
+    // 2. Password Validation Logic
+    function validatePasswords() {
+        const pass = passInput.value;
+        const confirm = confirmInput.value;
+
+        const isLongEnough = pass.length >= 8;
+        lengthNote.style.color = isLongEnough ? "#0ce71e" : "#ff4d4d";
+        lengthNote.innerHTML = isLongEnough ? "✓ Min. 8 characters" : "● Min. 8 characters";
+        passInput.className = isLongEnough ? "success-border" : "error-border";
+
+        const isMatch = (pass === confirm) && pass !== "";
+        matchNote.style.color = isMatch ? "#0ce71e" : "#ff4d4d";
+        matchNote.innerHTML = isMatch ? "✓ Passwords match" : "● Passwords must match";
+        confirmInput.className = isMatch ? "success-border" : "error-border";
+
+        return isLongEnough && isMatch;
+    }
+
+    // Real-time listeners
+    emailInput.addEventListener('input', validateEmail);
+    passInput.addEventListener('input', validatePasswords);
+    confirmInput.addEventListener('input', validatePasswords);
+
+    // 3. Block Form Submission if anything is wrong
+    form.onsubmit = function(e) {
+        const isEmailValid = validateEmail();
+        const isPassValid = validatePasswords();
+
+        if (!isEmailValid || !isPassValid) {
+            e.preventDefault(); // This stops them from "entering" the site
+            alert("Hold up! Check your email and password details before hitting the track.");
+        }
+    };
 </script>
   </body>
 </html>
