@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  initPasswordValidation();
   // 1. Elegant Staggered Entrance
   const observerOptions = {
     threshold: 0.1,
