@@ -1,25 +1,28 @@
 <!doctype html>
-<htm lang="en">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up - Williams Racing Fan Hub</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="styles.css" />
     <style>
-      /* Keeping it consistent with your login style besh! */
+      /* Consistent with your login style */
       body {
-        background-color: #041e42; /* Williams Blue base */
+        background-color: #041e42; 
         color: white;
         font-family: Arial, sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
         margin: 0;
       }
+
+      /* 1. The Container Fix */
       .form-container {
         background: rgba(255, 255, 255, 0.1);
-        padding: 2rem;
+        padding: 2.5rem; /* Increased padding for better internal spacing */
         border-radius: 10px;
         backdrop-filter: blur(10px);
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -27,66 +30,74 @@
         max-width: 400px;
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.2);
+        box-sizing: border-box; /* Ensures padding stays inside */
       }
+
       h2 {
         margin-bottom: 1.5rem;
         color: #00a0df;
       }
+
+      /* 2. The Universal Input Fix */
       input {
-        width: 90%;
-        padding: 10px;
+        width: 100% !important; /* Force all inputs to fill the container */
+        padding: 12px;
         margin: 10px 0;
         border: none;
         border-radius: 5px;
+        box-sizing: border-box; /* CRUCIAL: padding won't push width out */
+        display: block;
       }
+
+      /* 3. The Wrapper Fix */
+      .password-wrapper, .email-wrapper {
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        text-align: left;
+      }
+
+      .toggle-password {
+        position: absolute; 
+        right: 15px; 
+        top: 22px; /* Adjusted to sit perfectly in the middle of a 12px padded input */
+        cursor: pointer; 
+        color: #00a0df; 
+        font-size: 1.2rem;
+        z-index: 10;
+      }
+
       .submit-btn {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         background-color: #00a0df;
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         font-weight: bold;
-        margin-top: 10px;
+        margin-top: 20px;
         transition: 0.3s;
       }
+
       .submit-btn:hover {
         background-color: white;
         color: #041e42;
       }
-      .links {
-        margin-top: 15px;
-        font-size: 0.9rem;
-      }
-      .links a {
-        color: #00a0df;
-        text-decoration: none;
-      }
-      .links a:hover {
-        text-decoration: underline;
-      }
-      .home-link {
-        display: block;
-        margin-top: 20px;
-        color: #0ce71e;
-        text-decoration: none;
-        transition: 0.3s ease-in-out;
-      }
-      .home-link:hover {
-        text-decoration: underline !important;
-        color: #0ce71e !important; /* Optional: turns white to make the underline obvious */
-      }
 
-       input.error-border {
+      .links { margin-top: 15px; font-size: 0.9rem; }
+      .links a { color: #00a0df; text-decoration: none; }
+      .home-link { display: block; margin-top: 20px; color: #0ce71e; text-decoration: none; }
+
+      /* Border Validation states */
+      input.error-border {
         border: 2px solid #ff4d4d !important;
-        outline: none;
         background: rgba(255, 77, 77, 0.1); 
-        color: #ff4d4d !important; /* This changes the typed text to Red */
+        color: #ff4d4d !important;
       }
-       input.success-border {
+      input.success-border {
         border: 2px solid #0ce71e !important;
-        color: #0ce71e !important; /* Turns text Green when valid */
+        color: #0ce71e !important; 
         background: rgba(12, 231, 30, 0.05);
       }
     </style>
@@ -97,67 +108,72 @@
 
     <div class="form-container">
       <h2>Join the Paddock</h2>
-      <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #ccc;">
+      <p style="margin-bottom: 1.5rem; font-size: 0.9rem; color: #ccc;">
         Create your account to get exclusive updates.
       </p>
 
-    <form id="registrationForm" action="index.html">
+      <form id="registrationForm" action="index.html">
         <input type="text" placeholder="Full Name" required />
         
-        <div style="text-align: left; width: 90%; margin: 0 auto;">
-            <input 
-                type="email" 
-                id="emailInput"
-                placeholder="Email address" 
-                style="width: 100%; margin-bottom: 5px;"
-                required 
-            />
-            <p id="emailError" style="color: #ff4d4d; font-size: 0.75rem; display: none; margin-bottom: 10px;">
+        <div class="email-wrapper">
+            <input type="email" id="emailInput" placeholder="Email address" required />
+            <p id="emailError" style="color: #ff4d4d; font-size: 0.75rem; display: none; margin: -5px 0 10px 5px;">
                 Please enter a valid email address.
             </p>
         </div>
 
-        <div class="password-wrapper" style="position: relative; width: 100%;">
-            <input type="password" id="password" placeholder="Password" required style="width: 100%; box-sizing: border-box;" />
-            <span class="toggle-password" onclick="toggleVisibility('password')" style="position: absolute; right: 15px; top: 18px; cursor: pointer; color: #00a0df; font-size: 1.2rem;">👁️</span>
+        <div class="password-wrapper">
+            <input type="password" id="password" placeholder="Password" required />
+            <span class="toggle-password" onclick="toggleVisibility('password')">👁️</span>
         </div>
 
-        <div class="password-wrapper" style="position: relative; width: 100%;">
-            <input type="password" id="confirm_password" placeholder="Confirm Password" required style="width: 100%; box-sizing: border-box;" />
-            <span class="toggle-password" onclick="toggleVisibility('confirm_password')" style="position: absolute; right: 15px; top: 18px; cursor: pointer; color: #00a0df; font-size: 1.2rem;">👁️</span>
+        <div class="password-wrapper">
+            <input type="password" id="confirm_password" placeholder="Confirm Password" required />
+            <span class="toggle-password" onclick="toggleVisibility('confirm_password')">👁️</span>
         </div>
         
-        <div id="passwordStatus" style="text-align: left; width: 90%; margin: 0 auto; font-size: 0.75rem;">
-            <p id="lengthNote" style="color: #ff4d4d; margin: 5px 0;">● Min. 8 characters</p>
-            <p id="matchNote" style="color: #ff4d4d; margin: 5px 0;">● Passwords must match</p>
+        <div id="passwordStatus" style="text-align: left; font-size: 0.75rem; padding-left: 5px;">
+            <p id="lengthNote" style="color: #ff4d4d; margin: 8px 0;">● Min. 8 characters</p>
+            <p id="matchNote" style="color: #ff4d4d; margin: 8px 0;">● Passwords must match</p>
         </div>
         
         <button type="submit" class="submit-btn">REGISTER AS FAN</button>
       </form>
 
-    <div class="links">
-        <p>Already a member? <a href="login.html">Login here</a></p>
+      <div class="links">
+          <p>Already a member? <a href="login.html">Login here</a></p>
+      </div>
+
+      <a href="index.html" class="home-link">Back to Track</a>
     </div>
 
-    <a href="index.html" class="home-link">Back to Track</a>
-  </div>
-
     <script>
+    // Keep your existing script exactly as it is - it's already coded perfectly!
+    // Just make sure the toggleVisibility function is defined:
+    function toggleVisibility(id) {
+        const input = document.getElementById(id);
+        const icon = input.nextElementSibling;
+        if (input.type === "password") {
+            input.type = "text";
+            icon.textContent = "🔒"; // Change icon when visible
+        } else {
+            input.type = "password";
+            icon.textContent = "👁️";
+        }
+    }
+
     const form = document.getElementById('registrationForm');
     const emailInput = document.getElementById('emailInput');
     const emailError = document.getElementById('emailError');
     const passInput = document.getElementById('password');
     const confirmInput = document.getElementById('confirm_password');
-    
     const lengthNote = document.getElementById('lengthNote');
     const matchNote = document.getElementById('matchNote');
 
-    // 1. Email Validation Logic
     function validateEmail() {
         const value = emailInput.value;
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const isValid = emailPattern.test(value);
-
         if (value === "") {
             emailInput.classList.remove('error-border', 'success-border');
             emailError.style.display = 'none';
@@ -175,39 +191,32 @@
         }
     }
 
-    // 2. Password Validation Logic
     function validatePasswords() {
         const pass = passInput.value;
         const confirm = confirmInput.value;
-
         const isLongEnough = pass.length >= 8;
         lengthNote.style.color = isLongEnough ? "#0ce71e" : "#ff4d4d";
         lengthNote.innerHTML = isLongEnough ? "✓ Min. 8 characters" : "● Min. 8 characters";
         passInput.className = isLongEnough ? "success-border" : "error-border";
-
         const isMatch = (pass === confirm) && pass !== "";
         matchNote.style.color = isMatch ? "#0ce71e" : "#ff4d4d";
         matchNote.innerHTML = isMatch ? "✓ Passwords match" : "● Passwords must match";
         confirmInput.className = isMatch ? "success-border" : "error-border";
-
         return isLongEnough && isMatch;
     }
 
-    // Real-time listeners
     emailInput.addEventListener('input', validateEmail);
     passInput.addEventListener('input', validatePasswords);
     confirmInput.addEventListener('input', validatePasswords);
 
-    // 3. Block Form Submission if anything is wrong
     form.onsubmit = function(e) {
         const isEmailValid = validateEmail();
         const isPassValid = validatePasswords();
-
         if (!isEmailValid || !isPassValid) {
-            e.preventDefault(); // This stops them from "entering" the site
-            alert("Hold up! Check your email and password details before hitting the track.");
+            e.preventDefault();
+            alert("Hold up! Check your details before hitting the track.");
         }
     };
-</script>
+    </script>
   </body>
 </html>
