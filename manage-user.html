@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users | Williams Racing</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .manage-container { padding: 40px 20px; margin-top: 80px; }
+        
+        /* Table Styling */
+        .data-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 153, 255, 0.2);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .user-table th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid var(--light-blue);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .user-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Action Buttons */
+        .btn-delete {
+            background: #ff4d4d;
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-delete:hover { background: #cc0000; transform: scale(1.05); }
+
+        /* Search Bar */
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--light-blue);
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="profile-bg">
+
+    <nav class="navbar">
+        <a href="admin.html" class="nav-link">Dashboard</a>
+        <a href="manage-user.html" class="nav-link active">Manage Users</a>
+        <a href="index.html" class="nav-link">View Site</a>
+    </nav>
+
+    <div class="container manage-container">
+        <h2 class="section-title">Fan Database</h2>
+        
+        <div class="data-card">
+            <input type="text" id="userSearch" class="search-box" placeholder="Search by name or email..." onkeyup="filterUsers()">
+            
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <tr>
+                        <td>001</td>
+                        <td>Sharee Angela</td>
+                        <td>sharee@williams.com</td>
+                        <td><span style="color: #0ce71e;">Active</span></td>
+                        <td><button class="btn-delete" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Alex Albon</td>
+                        <td>alex23@williams.com</td>
+                        <td><span style="color: #0ce71e;">Active</span></td>
+                        <td><button class="btn-delete" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Search functionality specific to this page
+        function filterUsers() {
+            const input = document.getElementById('userSearch');
+            const filter = input.value.toLowerCase();
+            const rows = document.getElementById('userTableBody').getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const nameCol = rows[i].getElementsByTagName('td')[1];
+                const emailCol = rows[i].getElementsByTagName('td')[2];
+                if (nameCol || emailCol) {
+                    const textValue = (nameCol.textContent || emailCol.textContent).toLowerCase();
+                    rows[i].style.display = textValue.indexOf(filter) > -1 ? "" : "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
