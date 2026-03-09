@@ -1571,3 +1571,29 @@ footer p {
 .profile-bg {
   background-image: url("images/weeyums.jpg") !important;
 }
+
+/* New specific class for Admin and Manage-User pages */
+.dashboard-bg {
+    position: relative;
+    min-height: 100vh;
+    background-color: #000c1a; /* Very dark blue base */
+    overflow-x: hidden;
+    color: white;
+}
+
+.dashboard-bg::before {
+    content: "";
+    position: fixed; /* Keeps background still while scrolling tables */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/your-background-image.jpg'); /* Match your index background path */
+    background-size: cover;
+    background-position: center;
+    
+    /* LOWER OPACITY: 0.1 is very dark/faint, 0.3 is slightly visible */
+    opacity: 0.15; 
+    
+    z-index: -1; /* Ensures it stays behind everything */
+}
