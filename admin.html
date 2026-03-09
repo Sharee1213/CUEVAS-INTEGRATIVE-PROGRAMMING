@@ -6,65 +6,51 @@
     <title>Admin Command Center | Williams Racing</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Admin-Specific Table Styling to blend with your CSS */
+        /* Admin-Specific Layout */
         .admin-content { padding: 40px 20px; }
         
-        .table-container {
-            background: rgba(255, 255, 255, 0.05);
+        /* Glassmorphism Data Cards to ensure visibility over moving light */
+        .data-card {
+            background: rgba(13, 25, 48, 0.85); 
             backdrop-filter: blur(15px);
-            border-radius: 12px;
             border: 1px solid rgba(0, 153, 255, 0.3);
-            margin-top: 40px;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .table-container {
+            margin-top: 20px;
             overflow-x: auto;
         }
 
-        .admin-table {
+        /* Fix Table Visibility */
+        .user-table {
             width: 100%;
             border-collapse: collapse;
-            color: var(--white);
-            font-family: var(--body-font);
+            color: white;
         }
 
-        .admin-table th {
-            background: rgba(0, 102, 204, 0.8);
-            padding: 15px;
+        .user-table th {
             text-align: left;
-            font-family: var(--heading-font);
+            padding: 15px;
+            border-bottom: 2px solid rgba(0, 153, 255, 0.5);
+            color: var(--light-blue);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
 
-        .admin-table td {
+        .user-table td {
             padding: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95em;
         }
 
-        .admin-table tr:hover { background: rgba(0, 153, 255, 0.1); }
-
-        .delete-btn {
-            background: linear-gradient(135deg, #ff4d4d, #b30000);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
+        .user-table tr:hover {
+            background: rgba(0, 153, 255, 0.1);
         }
 
-        .delete-btn:hover { transform: scale(1.1); box-shadow: 0 0 10px rgba(255, 77, 77, 0.5); }
-
-        .admin-form-section {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            margin-top: 40px;
-            color: var(--dark-blue);
-        }
-
-        .admin-form-section h3 { font-family: var(--heading-font); margin-bottom: 20px; }
-
+        /* Form Styling */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -74,26 +60,42 @@
         .admin-input {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 153, 255, 0.3);
             border-radius: 6px;
+            color: white;
             font-family: var(--body-font);
         }
 
-        /* Hover effect for the clickable stat box */
-        .stat-box.clickable {
-            cursor: pointer;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            border: 1px solid transparent;
+        .admin-input option {
+            background: #000c1a;
+            color: white;
         }
 
+        /* Button Styling */
+        .delete-btn {
+            background: linear-gradient(135deg, #ff4d4d, #b30000);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .delete-btn:hover { transform: scale(1.05); }
+
+        .stat-box.clickable {
+            cursor: pointer;
+            transition: 0.3s;
+        }
         .stat-box.clickable:hover {
             transform: translateY(-5px);
-            border-color: var(--light-blue);
-            background: rgba(0, 153, 255, 0.1);
+            background: rgba(0, 153, 255, 0.15);
         }
     </style>
 </head>
-<body class="dashboard-bg>
+<body class="dashboard-bg">
 
     <nav class="navbar">
         <a href="admin.html" class="nav-link active">Admin Dashboard</a>
@@ -110,57 +112,72 @@
     </header>
 
     <main class="container admin-content">
-        <div class="about-grid">
-            <div class="stat-box clickable" onclick="window.location.href='manage-user.html'">
-                <span class="stat-number">2,842</span>
-                <span class="stat-label">Total Registered Fans →</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number">14</span>
-                <span class="stat-label">System Alerts</span>
-            </div>
-        </div>
-
-        <div class="table-container">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Fan Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="userTableBody">
-                    <tr>
-                        <td>1</td>
-                        <td>Sharee Angela</td>
-                        <td>community@williams.com</td>
-                        <td>Manager</td>
-                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <section class="admin-form-section">
-            <h3>Add New Fan Entry</h3>
-            <form id="addDataForm">
-                <div class="form-grid">
-                    <input type="text" placeholder="Full Name" class="admin-input" id="newName" required>
-                    <input type="email" placeholder="Email Address" class="admin-input" id="newEmail" required>
-                    <select class="admin-input" id="newRole">
-                        <option value="Fan">Fan</option>
-                        <option value="Pro Member">Pro Member</option>
-                        <option value="Staff">Staff</option>
-                    </select>
+        <div class="manage-container">
+            
+            <div class="about-grid" style="margin-bottom: 40px;">
+                <div class="stat-box clickable" onclick="window.location.href='manage-user.html'">
+                    <span class="stat-number">2,842</span>
+                    <span class="stat-label">Total Registered Fans →</span>
                 </div>
-                <button type="submit" class="cta-button" style="width: 100%; border: none; margin-top: 20px; cursor: pointer;">
-                    Register to Grid
-                </button>
-            </form>
-        </section>
+                <div class="stat-box">
+                    <span class="stat-number">14</span>
+                    <span class="stat-label">System Alerts</span>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <h3 style="color: var(--light-blue); margin-bottom: 10px;">Staff Oversight</h3>
+                <div class="table-container">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fan Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            <tr>
+                                <td>1</td>
+                                <td>Sharee Angela</td>
+                                <td>s.angela@williams.com</td>
+                                <td>Manager</td>
+                                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Kenneth Quibel</td>
+                                <td>k.quibel@williams.com</td>
+                                <td>Team Principal</td>
+                                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <h3 style="color: var(--light-blue); margin-bottom: 20px;">Add New Fan Entry</h3>
+                <form id="addDataForm">
+                    <div class="form-grid">
+                        <input type="text" placeholder="Full Name" class="admin-input" id="newName" required>
+                        <input type="email" placeholder="Email Address" class="admin-input" id="newEmail" required>
+                        <select class="admin-input" id="newRole">
+                            <option value="Fan">Fan</option>
+                            <option value="Driver">Driver</option>
+                            <option value="Pro Member">Pro Member</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%; border: none; margin-top: 25px; cursor: pointer;">
+                        REGISTER TO GRID
+                    </button>
+                </form>
+            </div>
+
+        </div>
     </main>
 
     <script src="script.js"></script>
