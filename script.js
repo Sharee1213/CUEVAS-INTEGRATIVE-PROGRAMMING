@@ -1,269 +1,128 @@
 document.addEventListener("DOMContentLoaded", () => {
-  initPasswordValidation();
-  // 1. Elegant Staggered Entrance
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px",
-  };
-
-  const appearanceObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // Find the index of the card among its siblings to delay it
-        const index = Array.from(entry.target.parentNode.children).indexOf(
-          entry.target,
-        );
-
-        setTimeout(() => {
-          entry.target.style.opacity = "1";
-          entry.target.style.transform = "translateY(0)";
-        }, index * 100);
-
-        appearanceObserver.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  // Apply entrance logic to cards and titles nah
-  document
-    .querySelectorAll(".driver-card, .stat-box, .section-title, .fact-card")
-    .forEach((el) => {
-      el.style.opacity = "0";
-      el.style.transform = "translateY(30px)";
-      el.style.transition = "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
-      appearanceObserver.observe(el);
-    });
-
-  // 2. Smooth Scroll Logic
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute("href")).scrollIntoView({
-        behavior: "smooth",
-      });
-    });
-  });
+    initPasswordValidation();
+    initEntranceAnimations();
+    initSmoothScroll();
+    initAdminLogic();
+    initUserSearch();
 });
 
-// 3. Profile Expansion Toggle
-function expandProfile(button) {
-  const card = button.closest(".driver-card");
-  card.classList.toggle("expanded");
+// 1. Unified Entrance Animations (Staggered)
+function initEntranceAnimations() {
+    const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const appearanceObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
+                setTimeout(() => {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }, index * 100);
+                appearanceObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
 
-  if (card.classList.contains("expanded")) {
-    button.textContent = "Close Profile";
-    button.style.background =
-      "linear-gradient(135deg, #cc0000 0%, #990000 100%)";
-  } else {
-    button.textContent = "View Profile";
-    button.style.background =
-      "linear-gradient(135deg, #0066cc 0%, #0099ff 100%)";
-  }
+    document.querySelectorAll(".driver-card, .stat-box, .section-title, .fact-card, .admin-table tr")
+        .forEach((el) => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+            appearanceObserver.observe(el);
+        });
 }
-// Update active nav link on scroll
-window.addEventListener("scroll", () => {
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll(".nav-link");
 
-  let current = "";
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
-    if (pageYOffset >= sectionTop - 200) {
-      current = section.getAttribute("id");
+// 2. Smooth Scroll
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) target.scrollIntoView({ behavior: "smooth" });
+        });
+    });
+}
+
+// 3. Admin & Manage User Logic
+function initAdminLogic() {
+    const addForm = document.getElementById("addDataForm");
+    const tableBody = document.getElementById("userTableBody");
+
+    if (addForm && tableBody) {
+        addForm.onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById("newName").value;
+            const email = document.getElementById("newEmail").value;
+            const role = document.getElementById("newRole").value;
+            const id = tableBody.rows.length + 1;
+
+            const newRow = `<tr>
+                <td>${id}</td>
+                <td>${name}</td>
+                <td>${email}</td>
+                <td>${role}</td>
+                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            </tr>`;
+            tableBody.insertAdjacentHTML('beforeend', newRow);
+            addForm.reset();
+        };
     }
-  });
+}
 
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href").slice(1) === current) {
-      link.classList.add("active");
+function initUserSearch() {
+    const searchInput = document.getElementById('userSearch');
+    if (!searchInput) return;
+
+    searchInput.addEventListener('keyup', () => {
+        const filter = searchInput.value.toLowerCase();
+        const rows = document.querySelectorAll('#userTableBody tr');
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(filter) ? "" : "none";
+        });
+    });
+}
+
+window.deleteRow = function(btn) {
+    if (confirm("Remove this entry from the grid?")) {
+        const row = btn.closest("tr");
+        row.style.opacity = "0";
+        row.style.transform = "translateX(50px)";
+        setTimeout(() => row.remove(), 400);
     }
-  });
-});
-
-// Expand profile functionality
-function expandProfile(button) {
-  const card = button.closest(".driver-card");
-  card.classList.toggle("expanded");
-
-  if (card.classList.contains("expanded")) {
-    button.textContent = "Close Profile";
-    button.style.background =
-      "linear-gradient(135deg, #cc0000 0%, #990000 100%)";
-  } else {
-    button.textContent = "View Profile";
-    button.style.background =
-      "linear-gradient(135deg, #0066cc 0%, #0099ff 100%)";
-  }
-}
-
-// Add animation on page load
-window.addEventListener("load", () => {
-  const driverCards = document.querySelectorAll(".driver-card");
-  driverCards.forEach((card, index) => {
-    card.style.animationDelay = `${index * 0.1}s`;
-  });
-
-  // Animate section titles on view
-  observeElements();
-});
-
-// Intersection Observer for animations
-function observeElements() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = "1";
-          entry.target.style.transform = "translateY(0)";
-        }
-      });
-    },
-    {
-      threshold: 0.1,
-    },
-  );
-
-  document.querySelectorAll(".section-title").forEach((title) => {
-    title.style.opacity = "0";
-    title.style.transform = "translateY(20px)";
-    title.style.transition = "all 0.6s ease";
-    observer.observe(title);
-  });
-}
-
-// Driver profile data (can be expanded)
-const driverData = {
-  albon: {
-    name: "Alex Albon",
-    nationality: "Thailand",
-    points: 45,
-    races: 15,
-    podiums: 2,
-    bio: "Skilled driver with exceptional racecraft and technical feedback. Alex brings valuable experience and consistent performance to Williams Racing.",
-  },
-  sargeant: {
-    name: "Logan Sargeant",
-    nationality: "USA",
-    points: 12,
-    races: 15,
-    podiums: 0,
-    bio: "Rising talent bringing fresh energy and determination to the team. Logan continues to develop and make his mark in Formula 1.",
-  },
-  sainz: {
-    name: "Carlos Sainz Jr.",
-    nationality: "Spain",
-    points: 78,
-    races: 15,
-    podiums: 5,
-    bio: "Experienced driver with championship pedigree and proven race wins. Carlos brings leadership and speed to Williams Racing.",
-  },
-  vowles: {
-    name: "James Vowles",
-    nationality: "UK",
-    points: "N/A",
-    experience: "20+ years",
-    podiums: "N/A",
-    bio: "Visionary leader steering Williams Racing towards championship contention. James oversees all technical and sporting aspects of the team.",
-  },
 };
 
-// Interactive features for future enhancement
-console.log("Williams Racing Website loaded successfully!");
-console.log("Driver data ready for interactive features.");
-
-// Initialize F1 speed indicators on page load
-// Replace your existing window load animation with this:
-window.addEventListener("load", () => {
-  const cards = document.querySelectorAll(
-    ".driver-card, .stat-box, .fact-card",
-  );
-
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px",
-  };
-
-  const appearanceObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        // Add a slight staggered delay based on index
-        setTimeout(() => {
-          entry.target.style.opacity = "1";
-          entry.target.style.transform = "translateY(0)";
-        }, index * 100);
-        appearanceObserver.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  cards.forEach((card) => {
-    card.style.opacity = "0";
-    card.style.transform = "translateY(30px)";
-    card.style.transition = "all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)";
-    appearanceObserver.observe(card);
-  });
-});
-
-// Log viewport statistics
-console.log(`Viewport: ${window.innerWidth}x${window.innerHeight}`);
-
-// New function for Password Validation
-function initPasswordValidation() {
-  const form = document.getElementById("registrationForm");
-  const passInput = document.getElementById("password");
-  const confirmInput = document.getElementById("confirm_password");
-  const lengthNote = document.getElementById("length-note");
-  const matchNote = document.getElementById("match-note");
-
-  // Only run this if we are actually on the Signup page (where the form exists)
-  if (!form || !passInput) return;
-
-  function validate() {
-    const pass = passInput.value;
-    const confirm = confirmInput.value;
-
-    // 1. Check Strength
-    const isLongEnough = pass.length >= 8;
-    lengthNote.style.color = isLongEnough ? "#0ce71e" : "#ff4d4d";
-    lengthNote.innerHTML = isLongEnough
-      ? "✓ Min. 8 characters"
-      : "● Min. 8 characters";
-
-    // 2. Check Match
-    const isMatch = pass === confirm && pass !== "";
-    matchNote.style.color = isMatch ? "#0ce71e" : "#ff4d4d";
-    matchNote.innerHTML = isMatch
-      ? "✓ Passwords match"
-      : "● Passwords must match";
-
-    return isLongEnough && isMatch;
-  }
-
-  passInput.addEventListener("input", validate);
-  confirmInput.addEventListener("input", validate);
-
-  form.onsubmit = function (event) {
-    if (!validate()) {
-      event.preventDefault();
-      alert(
-        "Hold up! Check your password requirements before hitting the track.",
-      );
-    }
-  };
+// 4. Existing Features
+function expandProfile(button) {
+    const card = button.closest(".driver-card");
+    card.classList.toggle("expanded");
+    button.textContent = card.classList.contains("expanded") ? "Close Profile" : "View Profile";
+    button.style.background = card.classList.contains("expanded") 
+        ? "linear-gradient(135deg, #cc0000 0%, #990000 100%)" 
+        : "linear-gradient(135deg, #0066cc 0%, #0099ff 100%)";
 }
 
-// 4. Toggle Password Visibility Logic
-window.toggleVisibility = function (id) {
-  const input = document.getElementById(id);
-  const icon = input.nextElementSibling;
+function initPasswordValidation() {
+    const form = document.getElementById("registrationForm");
+    const passInput = document.getElementById("password");
+    const confirmInput = document.getElementById("confirm_password");
+    if (!form || !passInput) return;
 
-  if (input.type === "password") {
-    input.type = "text";
-    icon.textContent = "🙈"; // Hide icon
-  } else {
-    input.type = "password";
-    icon.textContent = "👁️"; // Show icon
-  }
+    const validate = () => {
+        const isLong = passInput.value.length >= 8;
+        const isMatch = passInput.value === confirmInput.value && passInput.value !== "";
+        document.getElementById("length-note").style.color = isLong ? "#0ce71e" : "#ff4d4d";
+        document.getElementById("match-note").style.color = isMatch ? "#0ce71e" : "#ff4d4d";
+        return isLong && isMatch;
+    };
+
+    passInput.addEventListener("input", validate);
+    confirmInput.addEventListener("input", validate);
+    form.onsubmit = (e) => { if (!validate()) e.preventDefault(); };
+}
+
+window.toggleVisibility = function (id) {
+    const input = document.getElementById(id);
+    const icon = input.nextElementSibling;
+    input.type = input.type === "password" ? "text" : "password";
+    icon.textContent = input.type === "password" ? "👁️" : "🙈";
 };
