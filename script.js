@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. SECURITY: Check access immediately before anything else runs
+    checkAdminAccess();
+
+    // 2. INITIALIZE UI COMPONENTS
     initPasswordValidation();
     initEntranceAnimations();
     initSmoothScroll();
@@ -6,7 +10,53 @@ document.addEventListener("DOMContentLoaded", () => {
     initUserSearch();
 });
 
-// 1. Unified Entrance Animations (Staggered)
+// --- 1. ACCESS CONTROL & AUTHENTICATION ---
+
+/**
+ * Prevents unauthorized users from staying on admin.html
+ */
+function checkAdminAccess() {
+    // Get current filename (e.g., 'admin.html')
+    const path = window.location.pathname;
+    const page = path.split("/").pop();
+    const userRole = localStorage.getItem("userRole");
+
+    // Logic: If on admin page and NOT an admin, boot them to login
+    if (page === "admin.html") {
+        if (userRole !== "admin") {
+            alert("Restricted Area: Admin login required.");
+            window.location.href = "login.html"; // Ensure this matches your login file name
+        }
+    }
+}
+
+/**
+ * Handles the login process and sets the role in storage
+ * This should be called by your Login Form's submit event
+ */
+window.handleLogin = function(email, password) {
+    // Clear any previous session data for safety
+    localStorage.removeItem("userRole");
+
+    if (email === "admin@williams.com" && password === "racing2026") {
+        localStorage.setItem("userRole", "admin");
+        window.location.href = "admin.html";
+    } else {
+        localStorage.setItem("userRole", "fan");
+        window.location.href = "index.html";
+    }
+};
+
+/**
+ * Logs the user out by clearing storage
+ */
+window.handleLogout = function() {
+    localStorage.removeItem("userRole");
+    window.location.href = "login.html";
+};
+
+// --- 2. ENTRANCE & UI ANIMATIONS ---
+
 function initEntranceAnimations() {
     const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
     const appearanceObserver = new IntersectionObserver((entries) => {
@@ -22,6 +72,7 @@ function initEntranceAnimations() {
         });
     }, observerOptions);
 
+    // Target elements for the fade-in effect
     document.querySelectorAll(".driver-card, .stat-box, .section-title, .fact-card, .admin-table tr")
         .forEach((el) => {
             el.style.opacity = "0";
@@ -31,7 +82,8 @@ function initEntranceAnimations() {
         });
 }
 
-// 2. Smooth Scroll
+// --- 3. NAVIGATION & INTERFACE UTILITIES ---
+
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
@@ -42,7 +94,26 @@ function initSmoothScroll() {
     });
 }
 
-// 3. Admin & Manage User Logic
+window.toggleVisibility = function (id) {
+    const input = document.getElementById(id);
+    if (!input) return;
+    const icon = input.nextElementSibling;
+    input.type = input.type === "password" ? "text" : "password";
+    if (icon) icon.textContent = input.type === "password" ? "👁️" : "🙈";
+};
+
+window.expandProfile = function(button) {
+    const card = button.closest(".driver-card");
+    if (!card) return;
+    card.classList.toggle("expanded");
+    button.textContent = card.classList.contains("expanded") ? "Close Profile" : "View Profile";
+    button.style.background = card.classList.contains("expanded") 
+        ? "linear-gradient(135deg, #cc0000 0%, #990000 100%)" 
+        : "linear-gradient(135deg, #0066cc 0%, #0099ff 100%)";
+};
+
+// --- 4. ADMIN PANEL DATA MANAGEMENT ---
+
 function initAdminLogic() {
     const addForm = document.getElementById("addDataForm");
     const tableBody = document.getElementById("userTableBody");
@@ -91,38 +162,111 @@ window.deleteRow = function(btn) {
     }
 };
 
-// 4. Existing Features
-function expandProfile(button) {
-    const card = button.closest(".driver-card");
-    card.classList.toggle("expanded");
-    button.textContent = card.classList.contains("expanded") ? "Close Profile" : "View Profile";
-    button.style.background = card.classList.contains("expanded") 
-        ? "linear-gradient(135deg, #cc0000 0%, #990000 100%)" 
-        : "linear-gradient(135deg, #0066cc 0%, #0099ff 100%)";
-}
+// --- 5. REGISTRATION VALIDATION ---
 
 function initPasswordValidation() {
     const form = document.getElementById("registrationForm");
     const passInput = document.getElementById("password");
     const confirmInput = document.getElementById("confirm_password");
-    if (!form || !passInput) return;
+    
+    if (!form || !passInput || !confirmInput) return;
+
+    const lengthNote = document.getElementById("length-note");
+    const matchNote = document.getElementById("match-note");
 
     const validate = () => {
         const isLong = passInput.value.length >= 8;
         const isMatch = passInput.value === confirmInput.value && passInput.value !== "";
-        document.getElementById("length-note").style.color = isLong ? "#0ce71e" : "#ff4d4d";
-        document.getElementById("match-note").style.color = isMatch ? "#0ce71e" : "#ff4d4d";
+        
+        if (lengthNote) lengthNote.style.color = isLong ? "#0ce71e" : "#ff4d4d";
+        if (matchNote) matchNote.style.color = isMatch ? "#0ce71e" : "#ff4d4d";
+        
         return isLong && isMatch;
     };
 
     passInput.addEventListener("input", validate);
     confirmInput.addEventListener("input", validate);
-    form.onsubmit = (e) => { if (!validate()) e.preventDefault(); };
+    
+    form.onsubmit = (e) => { 
+        if (!validate()) {
+            e.preventDefault();
+            alert("Please ensure passwords meet requirements.");
+        }
+    };
 }
 
-window.toggleVisibility = function (id) {
-    const input = document.getElementById(id);
-    const icon = input.nextElementSibling;
-    input.type = input.type === "password" ? "text" : "password";
-    icon.textContent = input.type === "password" ? "👁️" : "🙈";
+/**
+ * Security Gatekeeper: Checks if the user is authorized for the admin page
+ */
+function checkAdminAccess() {
+    const page = window.location.pathname.split("/").pop();
+    const userRole = localStorage.getItem("userRole");
+
+    if (page === "admin.html" && userRole !== "admin") {
+        window.location.href = "login.html";
+    }
+}
+
+/**
+ * Logout Function: Clears the session and sends user to login
+ */
+window.handleLogout = function() {
+    localStorage.removeItem("userRole");
+    window.location.href = "login.html";
 };
+
+function toggleVisibility(id) {
+    const input = document.getElementById(id);
+    const icon = event.target;
+    if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "🙈"; // Change icon when visible
+    } else {
+        input.type = "password";
+        icon.textContent = "👁️";
+    }
+}
+
+function handleLogin(email, password) {
+    // 1. Clean the input (removes accidental spaces)
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPass = password.trim();
+
+    console.log("Attempting login with:", cleanEmail); // Debugging
+
+    // 2. The Admin Check
+    if (cleanEmail === "admin@williams.com" && cleanPass === "pitwall2026") {
+        console.log("Admin Match Found!");
+        localStorage.setItem("userRole", "admin");
+        window.location.href = "admin.html";
+        return; // Stop here so it doesn't run the code below
+    } 
+
+    // 3. The Fan Check (The "Else")
+    console.log("Standard Fan Login");
+    localStorage.setItem("userRole", "fan");
+    window.location.href = "index.html";
+}
+
+// --- ADMIN & USER LOGIN LOGIC ---
+const loginForm = document.getElementById('loginForm');
+
+if (loginForm) {
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // This stops the page from automatically going to index.html
+
+        const emailValue = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const passValue = document.getElementById('loginPass').value.trim();
+
+        // 1. Check for Admin
+        if (emailValue === "admin@williams.com" && passValue === "pitwall2026") {
+            localStorage.setItem("userRole", "admin"); // Give them the Admin Key
+            window.location.href = "admin.html";      // Send to Admin Dashboard
+        } 
+        // 2. Everything else is a Fan
+        else {
+            localStorage.setItem("userRole", "fan");
+            window.location.href = "index.html";
+        }
+    });
+}
