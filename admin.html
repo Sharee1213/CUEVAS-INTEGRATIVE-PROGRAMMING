@@ -4,13 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Command Center | Williams Racing</title>
+    
+    <script>
+        /* PIT WALL GATEKEEPER 
+           We check this BEFORE the CSS even loads to stop unauthorized 
+           access as fast as possible.
+        */
+        if (localStorage.getItem("userRole") !== "admin") {
+            alert("Access Denied: Pit Crew and Admins Only!");
+            window.location.href = "login.html"; 
+        }
+    </script>
+
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="styles.css">
+
     <style>
         /* Admin-Specific Layout */
         .admin-content { padding: 40px 20px; }
         
-        /* Glassmorphism Data Cards to ensure visibility over moving light */
+        /* Glassmorphism Data Cards */
         .data-card {
             background: rgba(13, 25, 48, 0.85); 
             backdrop-filter: blur(15px);
@@ -25,7 +38,7 @@
             overflow-x: auto;
         }
 
-        /* Fix Table Visibility */
+        /* Table Styling */
         .user-table {
             width: 100%;
             border-collapse: collapse;
@@ -36,7 +49,7 @@
             text-align: left;
             padding: 15px;
             border-bottom: 2px solid rgba(0, 153, 255, 0.5);
-            color: var(--light-blue);
+            color: #00a0df; /* Williams Blue */
             text-transform: uppercase;
             font-size: 0.85em;
         }
@@ -65,11 +78,10 @@
             border: 1px solid rgba(0, 153, 255, 0.3);
             border-radius: 6px;
             color: white;
-            font-family: var(--body-font);
         }
 
         .admin-input option {
-            background: #000c1a;
+            background: #041e42;
             color: white;
         }
 
@@ -81,18 +93,29 @@
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.3s ease;
         }
 
-        .delete-btn:hover { transform: scale(1.05); }
+        .delete-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
 
-        .stat-box.clickable {
+        .cta-button {
+            background: #00a0df;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: none;
+            width: 100%;
+            margin-top: 25px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .stat-box.clickable:hover {
-            transform: translateY(-5px);
-            background: rgba(0, 153, 255, 0.15);
+
+        .cta-button:hover {
+            background: white;
+            color: #041e42;
+            box-shadow: 0 0 15px rgba(0, 160, 223, 0.4);
         }
     </style>
 </head>
@@ -102,7 +125,7 @@
         <a href="admin.html" class="nav-link active">Admin Dashboard</a>
         <a href="manage-user.html" class="nav-link">Manage Users</a>
         <a href="index.html" class="nav-link">Back to Site</a>
-        <a href="index.html" class="nav-link" style="color: #ff4d4d;">Logout</a>
+        <a href="javascript:void(0)" onclick="handleLogout()" class="nav-link" style="color: #ff4d4d;">Logout</a>
     </nav>
 
     <header>
