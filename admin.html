@@ -1,48 +1,154 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard | Williams Racing</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Command Center | Williams Racing</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Admin-Specific Table Styling to blend with your CSS */
+        .admin-content { padding: 40px 20px; }
+        
+        .table-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 153, 255, 0.3);
+            margin-top: 40px;
+            overflow-x: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: var(--white);
+            font-family: var(--body-font);
+        }
+
+        .admin-table th {
+            background: rgba(0, 102, 204, 0.8);
+            padding: 15px;
+            text-align: left;
+            font-family: var(--heading-font);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+
+        .admin-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-table tr:hover { background: rgba(0, 153, 255, 0.1); }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #ff4d4d, #b30000);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .delete-btn:hover { transform: scale(1.1); box-shadow: 0 0 10px rgba(255, 77, 77, 0.5); }
+
+        .admin-form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+            color: var(--dark-blue);
+        }
+
+        .admin-form-section h3 { font-family: var(--heading-font); margin-bottom: 20px; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: var(--body-font);
+        }
+    </style>
 </head>
 <body class="profile-bg">
+
     <nav class="navbar">
-        <a href="admin.html" class="nav-link active">Dashboard</a>
-        <a href="manage-data.html" class="nav-link">Manage Users</a>
-        <a href="index.html" class="nav-link">View Site</a>
-        <a href="logout.html" class="nav-link login-btn">Logout</a>
+        <a href="admin.html" class="nav-link active">Admin Dashboard</a>
+        <a href="index.html" class="nav-link">Back to Site</a>
+        <a href="index.html" class="nav-link" style="color: #ff4d4d;">Logout</a>
     </nav>
 
     <header>
         <div class="header-content">
-            <h1>ADMIN CONTROL</h1>
-            <p class="tagline">System Oversight & Data Management</p>
+            <h1>COMMAND CENTER</h1>
+            <p class="tagline">Williams Racing Data Oversight</p>
         </div>
     </header>
 
-    <section class="container" style="padding: 50px 0;">
-        <h2 class="section-title">Welcome, Admin</h2>
+    <main class="container admin-content">
         <div class="about-grid">
             <div class="stat-box">
-                <div class="stat-number">2.4k</div>
-                <div class="stat-label">Active Fans</div>
+                <span class="stat-number">2,842</span>
+                <span class="stat-label">Total Registered Fans</span>
             </div>
             <div class="stat-box">
-                <div class="stat-number">55</div>
-                <div class="stat-label">New Signups (Today)</div>
+                <span class="stat-number">14</span>
+                <span class="stat-label">System Alerts</span>
             </div>
         </div>
 
-        <div class="team-card" style="margin-top: 30px; text-align: center;">
-            <h3>Quick Actions</h3>
-            <p>Use the navigation menu to manage system data, moderate fan comments, or update driver standings.</p>
-            <a href="manage-data.html" class="cta-button">Manage System Data</a>
+        <div class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fan Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <tr>
+                        <td>1</td>
+                        <td>Sharee Angela</td>
+                        <td>community@williams.com</td>
+                        <td>Manager</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </section>
 
-    <footer>
-        <p>&copy; 2026 Williams Racing Admin Portal</p>
-    </footer>
+        <section class="admin-form-section">
+            <h3>Add New Fan Entry</h3>
+            <form id="addDataForm">
+                <div class="form-grid">
+                    <input type="text" placeholder="Full Name" class="admin-input" id="newName" required>
+                    <input type="email" placeholder="Email Address" class="admin-input" id="newEmail" required>
+                    <select class="admin-input" id="newRole">
+                        <option value="Fan">Fan</option>
+                        <option value="Pro Member">Pro Member</option>
+                        <option value="Staff">Staff</option>
+                    </select>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%; border: none; margin-top: 20px; cursor: pointer;">
+                    Register to Grid
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
