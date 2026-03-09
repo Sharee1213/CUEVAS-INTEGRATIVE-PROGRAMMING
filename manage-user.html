@@ -6,6 +6,17 @@
     <title>Manage Users | Williams Racing</title>
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="styles.css">
+
+    <script>
+        // Check if the user is an admin
+        const role = localStorage.getItem("userRole");
+        
+        if (role !== "admin") {
+            alert("Access Denied: Pit Crew and Admins Only!");
+            window.location.href = "index.html"; // Boot them back to the home page
+        }
+    </script>
+
     <style>
         .manage-container { padding: 40px 20px; margin-top: 80px; }
         
@@ -70,6 +81,7 @@
         <a href="admin.html" class="nav-link">Dashboard</a>
         <a href="manage-user.html" class="nav-link active">Manage Users</a>
         <a href="index.html" class="nav-link">View Site</a>
+        <a href="#" onclick="logout()" class="nav-link" style="color: #ff4d4d;">Logout</a>
     </nav>
 
     <div class="container manage-container">
