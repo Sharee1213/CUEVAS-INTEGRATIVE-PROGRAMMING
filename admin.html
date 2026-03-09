@@ -78,12 +78,26 @@
             border-radius: 6px;
             font-family: var(--body-font);
         }
+
+        /* Hover effect for the clickable stat box */
+        .stat-box.clickable {
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .stat-box.clickable:hover {
+            transform: translateY(-5px);
+            border-color: var(--light-blue);
+            background: rgba(0, 153, 255, 0.1);
+        }
     </style>
 </head>
 <body class="profile-bg">
 
     <nav class="navbar">
         <a href="admin.html" class="nav-link active">Admin Dashboard</a>
+        <a href="manage-user.html" class="nav-link">Manage Users</a>
         <a href="index.html" class="nav-link">Back to Site</a>
         <a href="index.html" class="nav-link" style="color: #ff4d4d;">Logout</a>
     </nav>
@@ -97,9 +111,9 @@
 
     <main class="container admin-content">
         <div class="about-grid">
-            <div class="stat-box">
+            <div class="stat-box clickable" onclick="window.location.href='manage-user.html'">
                 <span class="stat-number">2,842</span>
-                <span class="stat-label">Total Registered Fans</span>
+                <span class="stat-label">Total Registered Fans →</span>
             </div>
             <div class="stat-box">
                 <span class="stat-number">14</span>
