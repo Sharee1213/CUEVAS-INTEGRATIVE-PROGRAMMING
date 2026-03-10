@@ -270,3 +270,37 @@ if (loginForm) {
         }
     });
 }
+
+const emailInput = document.getElementById("loginEmail");
+const emailError = document.getElementById("loginError");
+const loginForm = document.getElementById("loginForm");
+
+// The "Strict Domain" Pattern
+const domainRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|williams\.com)$/i;
+
+emailInput.addEventListener("input", () => {
+    const value = emailInput.value;
+
+    if (value === "") {
+        emailInput.classList.remove("error-border", "success-border");
+        emailError.style.display = "none";
+    } else if (!domainRegex.test(value)) {
+        // Domain doesn't match
+        emailInput.classList.add("error-border");
+        emailInput.classList.remove("success-border");
+        emailError.style.display = "block";
+    } else {
+        // Domain is valid
+        emailInput.classList.remove("error-border");
+        emailInput.classList.add("success-border");
+        emailError.style.display = "none";
+    }
+});
+
+// Final Check on Submit
+loginForm.addEventListener("submit", (e) => {
+    if (!domainRegex.test(emailInput.value)) {
+        e.preventDefault(); // Stop the form from sending
+        alert("Invalid Domain! Only Williams, Gmail, and Yahoo accounts are permitted.");
+    }
+});
