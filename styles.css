@@ -114,12 +114,14 @@ header h1 {
   color: var(--light-blue);
 }
 
-/* Navigation */
+/* Navigation - Forced Horizontal Row */
 .navbar {
   background-color: var(--dark-blue);
   display: flex;
+  flex-direction: row; /* Forces items to stay in a line */
   justify-content: center;
-  gap: 30px;
+  align-items: center; /* Vertically aligns text baselines */
+  gap: 20px;
   padding: 15px 20px;
   position: sticky;
   top: 0;
@@ -135,6 +137,8 @@ header h1 {
   transition: all 0.3s ease;
   padding: 8px 15px;
   border-radius: 4px;
+  white-space: nowrap; /* Prevents Login/Sign Up from wrapping to two lines */
+  display: inline-block;
 }
 
 .nav-link:hover,
@@ -1721,4 +1725,6 @@ select {
     -webkit-appearance: none;
     cursor: pointer;
 }
+
+
 
