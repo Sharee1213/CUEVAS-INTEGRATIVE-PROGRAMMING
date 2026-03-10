@@ -118,7 +118,7 @@
         <div class="email-wrapper">
             <input type="email" id="emailInput" placeholder="Email address" required />
             <p id="emailError" style="color: #ff4d4d; font-size: 0.75rem; display: none; margin: -5px 0 10px 5px;">
-                Please enter a valid email address.
+                Please use @gmail.com, @yahoo.com, or @williams.com
             </p>
         </div>
 
@@ -148,8 +148,6 @@
     </div>
 
     <script>
-    // Keep your existing script exactly as it is - it's already coded perfectly!
-    // Just make sure the toggleVisibility function is defined:
     function toggleVisibility(id) {
         const input = document.getElementById(id);
         const icon = input.nextElementSibling;
@@ -162,6 +160,7 @@
         }
     }
 
+    const domainRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|williams\.com)$/i;
     const form = document.getElementById('registrationForm');
     const emailInput = document.getElementById('emailInput');
     const emailError = document.getElementById('emailError');
@@ -170,27 +169,27 @@
     const lengthNote = document.getElementById('lengthNote');
     const matchNote = document.getElementById('matchNote');
 
+    // 1. REAL-TIME VALIDATION (Matches Login style)
     function validateEmail() {
-        const value = emailInput.value;
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        const isValid = emailPattern.test(value);
+        const value = emailInput.value.trim();
         if (value === "") {
             emailInput.classList.remove('error-border', 'success-border');
             emailError.style.display = 'none';
             return false;
-        } else if (!isValid) {
+        } else if (domainRegex.test(value)) {
+            emailInput.classList.add('success-border');
+            emailInput.classList.remove('error-border');
+            emailError.style.display = 'none';
+            return true;
+        } else {
             emailInput.classList.add('error-border');
             emailInput.classList.remove('success-border');
             emailError.style.display = 'block';
             return false;
-        } else {
-            emailInput.classList.remove('error-border');
-            emailInput.classList.add('success-border');
-            emailError.style.display = 'none';
-            return true;
         }
     }
 
+    // Keep your password validation as is
     function validatePasswords() {
         const pass = passInput.value;
         const confirm = confirmInput.value;
@@ -198,6 +197,7 @@
         lengthNote.style.color = isLongEnough ? "#0ce71e" : "#ff4d4d";
         lengthNote.innerHTML = isLongEnough ? "✓ Min. 8 characters" : "● Min. 8 characters";
         passInput.className = isLongEnough ? "success-border" : "error-border";
+        
         const isMatch = (pass === confirm) && pass !== "";
         matchNote.style.color = isMatch ? "#0ce71e" : "#ff4d4d";
         matchNote.innerHTML = isMatch ? "✓ Passwords match" : "● Passwords must match";
@@ -209,13 +209,46 @@
     passInput.addEventListener('input', validatePasswords);
     confirmInput.addEventListener('input', validatePasswords);
 
+    // 2. THE STEP-BY-STEP SUBMIT HANDLER
     form.onsubmit = function(e) {
-        const isEmailValid = validateEmail();
-        const isPassValid = validatePasswords();
-        if (!isEmailValid || !isPassValid) {
-            e.preventDefault();
-            alert("Hold up! Check your details before hitting the track.");
+        const emailValue = emailInput.value.trim().toLowerCase();
+        
+        // STEP A: Validate Domain First (Mirroring Login Logic)
+        if (!domainRegex.test(emailValue)) {
+            e.preventDefault(); // Stop submission
+            alert("Invalid Domain! Only Williams, Gmail, and Yahoo accounts are permitted.");
+            
+            // 1. Reset text values
+            emailInput.value = "";
+            passInput.value = "";
+            confirmInput.value = "";
+
+            // 2. CLEAR VISUAL BORDERS (Removes the green/red lines)
+            emailInput.classList.remove("success-border", "error-border");
+            passInput.classList.remove("success-border", "error-border");
+            confirmInput.classList.remove("success-border", "error-border");
+
+            // 3. RESET PASSWORD NOTES (Turns them back to Red/Neutral)
+            lengthNote.style.color = "#ff4d4d";
+            lengthNote.innerHTML = "● Min. 8 characters";
+            matchNote.style.color = "#ff4d4d";
+            matchNote.innerHTML = "● Passwords must match";
+
+            if(emailError) emailError.style.display = "none";
+            emailInput.focus();
+            return; 
         }
+
+        // STEP B: If domain is valid, check passwords
+        const isPassValid = validatePasswords();
+        if (!isPassValid) {
+            e.preventDefault();
+            alert("Hold up! Check your passwords before hitting the track.");
+            return;
+        }
+
+        // Everything is valid - Set role and proceed
+        localStorage.setItem("userRole", "fan");
     };
     </script>
   </body>

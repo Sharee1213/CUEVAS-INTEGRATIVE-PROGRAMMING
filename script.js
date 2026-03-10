@@ -306,3 +306,90 @@ if (loginForm) {
         }
     });
 }
+
+// --- SIGNUP VALIDATION LOGIC (MATCHING LOGIN STYLE) ---
+const registrationForm = document.getElementById('registrationForm');
+const signupEmail = document.getElementById('emailInput');
+const signupError = document.getElementById('emailError');
+
+if (registrationForm) {
+    registrationForm.reset();
+
+    // 1. Real-time visual feedback as the user types
+    signupEmail.addEventListener("input", () => {
+        const value = signupEmail.value.trim();
+        if (value === "") {
+            signupEmail.classList.remove("error-border", "success-border");
+            if(signupError) signupError.style.display = "none";
+        } else if (domainRegex.test(value)) {
+            signupEmail.classList.add("success-border");
+            signupEmail.classList.remove("error-border");
+            if(signupError) signupError.style.display = "none";
+        } else {
+            signupEmail.classList.add("error-border");
+            signupEmail.classList.remove("success-border");
+            if(signupError) signupError.style.display = "block";
+        }
+    });
+
+    // 2. Single Submit Handler (Step A & Step B)
+    registrationForm.addEventListener('submit', function(event) {
+        const emailValue = signupEmail.value.trim().toLowerCase();
+        const passValue = document.getElementById('password').value.trim();
+        const confirmPassValue = document.getElementById('confirm_password').value.trim();
+
+        // STEP A: Validate Domain First
+        if (!domainRegex.test(emailValue)) {
+            event.preventDefault(); // Stop the registration
+            alert("Invalid Domain! Only Williams, Gmail, and Yahoo accounts are permitted.");
+            
+            // Reset fields
+            signupEmail.value = "";
+            document.getElementById('password').value = "";
+            document.getElementById('confirm_password').value = "";
+            signupEmail.classList.remove("success-border", "error-border");
+            if(signupError) signupError.style.display = "none";
+            signupEmail.focus();
+            return; // EXIT
+        }
+
+        // STEP B: If domain is valid, finalize registration
+        event.preventDefault(); // Prevent default browser submission
+
+        // Note: Your inline HTML script handles the password matching check.
+        // If those pass, we set the role and enter the track.
+        localStorage.setItem("userRole", "fan");
+        alert("Welcome to the team! Your Fan account is ready.");
+        window.location.href = "index.html";
+    });
+}
+
+// --- DYNAMIC NAVBAR & LOGOUT LOGIC ---
+document.addEventListener("DOMContentLoaded", () => {
+    const guestLinks = document.getElementById('guest-links');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userRole = localStorage.getItem("userRole");
+
+    // 1. Check if user is logged in
+    if (userRole) {
+        // User is logged in: Hide Login/Signup, Show Logout
+        if (guestLinks) guestLinks.style.display = "none";
+        if (logoutBtn) logoutBtn.style.display = "inline-block";
+    }
+
+    // 2. Handle Logout Click
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Clear the session
+            localStorage.removeItem("userRole");
+            
+            // Optional: Confirm with a popup
+            alert("Exiting the Paddock. See you next race!");
+            
+            // Redirect to login
+            window.location.href = "login.html";
+        });
+    }
+});
