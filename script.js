@@ -248,59 +248,61 @@ function handleLogin(email, password) {
     window.location.href = "index.html";
 }
 
-// --- ADMIN & USER LOGIN LOGIC ---
+// --- UNIFIED LOGIN & DOMAIN VALIDATION LOGIC ---
 const loginForm = document.getElementById('loginForm');
+const emailInput = document.getElementById("loginEmail");
+const emailError = document.getElementById("loginError");
+
+// Strict pattern for allowed domains
+const domainRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|williams\.com)$/i;
 
 if (loginForm) {
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // This stops the page from automatically going to index.html
+    loginForm.reset();
+    // 1. Real-time visual feedback as the user types
+    emailInput.addEventListener("input", () => {
+        const value = emailInput.value.trim();
+        if (value === "") {
+            emailInput.classList.remove("error-border", "success-border");
+            if(emailError) emailError.style.display = "none";
+        } else if (domainRegex.test(value)) {
+            emailInput.classList.add("success-border");
+            emailInput.classList.remove("error-border");
+            if(emailError) emailError.style.display = "none";
+        } else {
+            emailInput.classList.add("error-border");
+            emailInput.classList.remove("success-border");
+            if(emailError) emailError.style.display = "block";
+        }
+    });
 
-        const emailValue = document.getElementById('loginEmail').value.trim().toLowerCase();
+    // 2. Single Submit Handler
+    loginForm.addEventListener('submit', function(event) {
+        const emailValue = emailInput.value.trim().toLowerCase();
         const passValue = document.getElementById('loginPass').value.trim();
 
-        // 1. Check for Admin
+        // STEP A: Validate Domain First
+        if (!domainRegex.test(emailValue)) {
+            event.preventDefault(); // Stop the redirect
+            alert("Invalid Domain! Only Williams, Gmail, and Yahoo accounts are permitted.");
+            
+            // Reset fields
+            emailInput.value = "";
+            document.getElementById('loginPass').value = "";
+            emailInput.classList.remove("success-border", "error-border");
+            if(emailError) emailError.style.display = "none";
+            emailInput.focus();
+            return; // EXIT - do not run the code below
+        }
+
+        // STEP B: If domain is valid, check credentials
+        event.preventDefault(); // Prevent default browser submission
+
         if (emailValue === "admin@williams.com" && passValue === "pitwall2026") {
-            localStorage.setItem("userRole", "admin"); // Give them the Admin Key
-            window.location.href = "admin.html";      // Send to Admin Dashboard
-        } 
-        // 2. Everything else is a Fan
-        else {
+            localStorage.setItem("userRole", "admin");
+            window.location.href = "admin.html";
+        } else {
             localStorage.setItem("userRole", "fan");
             window.location.href = "index.html";
         }
     });
 }
-
-const emailInput = document.getElementById("loginEmail");
-const emailError = document.getElementById("loginError");
-const loginForm = document.getElementById("loginForm");
-
-// The "Strict Domain" Pattern
-const domainRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|williams\.com)$/i;
-
-emailInput.addEventListener("input", () => {
-    const value = emailInput.value;
-
-    if (value === "") {
-        emailInput.classList.remove("error-border", "success-border");
-        emailError.style.display = "none";
-    } else if (!domainRegex.test(value)) {
-        // Domain doesn't match
-        emailInput.classList.add("error-border");
-        emailInput.classList.remove("success-border");
-        emailError.style.display = "block";
-    } else {
-        // Domain is valid
-        emailInput.classList.remove("error-border");
-        emailInput.classList.add("success-border");
-        emailError.style.display = "none";
-    }
-});
-
-// Final Check on Submit
-loginForm.addEventListener("submit", (e) => {
-    if (!domainRegex.test(emailInput.value)) {
-        e.preventDefault(); // Stop the form from sending
-        alert("Invalid Domain! Only Williams, Gmail, and Yahoo accounts are permitted.");
-    }
-});
