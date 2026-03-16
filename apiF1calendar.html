@@ -1,40 +1,51 @@
-//apiF1calendar.html
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Williams Fan Club - F1 Circuit Calendar</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Williams Hub - 2026 Race Calendar</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="dashboard-bg"> 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="apiF1calendar.html" class="nav-link active">Race Calendar</a>
-            <div id="guest-links" style="display: inline;">
-                <a href="login.html" class="nav-link">Login</a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="apiF1calendar.html" class="nav-link">Race Calendar</a>
+                
+                <div id="guest-links">
+                    <a href="login.html" class="nav-link">Login</a>
+                    <a href="signup.html" class="nav-link">Sign Up</a>
+                </div>
+                
+                <button id="logoutBtn" class="view-btn logout-btn" style="display: none;">Logout</button>
             </div>
-            <button id="logoutBtn" class="delete-btn" style="display: none; margin-left: 10px;">Logout</button>
         </div>
     </nav>
 
-    <header class="section-title">
-        <h1>Global Grand Prix Circuits</h1>
-        <p>Explore the tracks where Williams Racing makes history.</p>
+    <header>
+        <div class="header-content">
+            <h1>Global Grand Prix Circuits</h1>
+            <p class="tagline">Explore the tracks where Williams Racing makes history.</p>
+        </div>
     </header>
 
     <main class="container">
-        <div class="admin-panel" style="text-align: center; margin-bottom: 30px;">
-            <input type="text" id="circuitSearch" placeholder="Search by Country (e.g. Monaco)...">
+        <div class="admin-panel">
+            <input type="text" id="circuitSearch" placeholder="Search Country (e.g. Monaco)...">
             <button id="fetchBtn" class="view-btn">Load 2026 Calendar</button>
         </div>
 
         <div id="calendarGrid" class="drivers-grid">
-            <p style="text-align: center; width: 100%; color: white;">Click the button above to sync with the Pit Wall.</p>
+            <p class="pit-wall-msg">Click the button above to sync with the Pit Wall.</p>
         </div>
     </main>
+
+    <footer>
+        <p>&copy; 2026 Williams Fan Hub | Sharee Angela Cuevas</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
