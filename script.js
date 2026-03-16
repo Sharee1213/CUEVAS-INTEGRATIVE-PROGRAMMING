@@ -393,3 +393,127 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// ==========================================
+// --- 6. F1 CALENDAR API INTEGRATION ---
+// ==========================================
+
+/**
+ * API ACTIVITY: F1 Race Calendar
+ * Purpose: Fetch 2026 Grand Prix data using the public Jolpi (Ergast) API.
+ * Requirements met: fetch(), JSON processing, Error Handling, and Dynamic Display.
+ */
+
+// We use a global variable to store races so the search bar can filter them
+let f1Races = []; 
+
+// This ensures the API logic only runs when the "apiF1calendar.html" page is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    const fetchBtn = document.getElementById('fetchBtn');
+    const searchInput = document.getElementById('circuitSearch');
+
+    if (fetchBtn) {
+        fetchBtn.addEventListener('click', fetchF1Calendar);
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('keyup', filterF1Circuits);
+    }
+});
+
+/**
+ * Fetches data from the API and handles the response
+ */
+async function fetchF1Calendar() {
+    const grid = document.getElementById('calendarGrid');
+    
+    // 1. UI: Show loading state
+    if (grid) {
+        grid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 20px;">
+                <p>📡 Connecting to the Pit Wall... Please wait.</p>
+            </div>
+        `;
+    }
+
+    try {
+        // 2. API REQUEST: No Key required, safe for GitHub Pages
+        const response = await fetch('https://api.jolpi.ca/ergast/f1/2026.json');
+
+        // 3. ERROR HANDLING: Check if the server responded correctly
+        if (!response.ok) {
+            throw new Error("The F1 server is currently unavailable.");
+        }
+
+        const data = await response.json();
+        f1Races = data.MRData.RaceTable.Races;
+
+        // 4. PROCESS & DISPLAY: Send data to the display function
+        displayF1Races(f1Races);
+
+    } catch (error) {
+        // 5. ERROR HANDLING: Display a friendly error message if the API fails
+        if (grid) {
+            grid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 15px; border-radius: 8px;">
+                    <p>⚠️ <strong>System Error:</strong> ${error.message}</p>
+                    <p>Try checking your internet connection or the API status.</p>
+                </div>
+            `;
+        }
+        console.error("API Error:", error);
+    }
+}
+
+/**
+ * Dynamically creates HTML cards for each race
+ */
+function displayF1Races(races) {
+    const grid = document.getElementById('calendarGrid');
+    if (!grid) return;
+
+    grid.innerHTML = ""; // Clear the "Click to load" text
+
+    if (races.length === 0) {
+        grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No races found matching that search.</p>";
+        return;
+    }
+
+    races.forEach(race => {
+        // Create the card element
+        const card = document.createElement('div');
+        card.className = 'driver-card'; // This reuses your existing CSS styles
+        
+        // Use the Williams team color (Blue) for the header
+        card.innerHTML = `
+            <div class="card-content" style="padding: 15px;">
+                <span style="font-size: 12px; font-weight: bold; color: #00A0E2;">ROUND ${race.round}</span>
+                <h3 style="margin: 10px 0; color: #fff;">${race.raceName}</h3>
+                <p><strong>🏁 Circuit:</strong> ${race.Circuit.circuitName}</p>
+                <p><strong>📍 Location:</strong> ${race.Circuit.Location.locality}, ${race.Circuit.Location.country}</p>
+                <p><strong>📅 Date:</strong> ${new Date(race.date).toDateString()}</p>
+                <a href="${race.url}" target="_blank" class="view-btn" style="display: block; text-align: center; margin-top: 15px; text-decoration: none;">Track Details</a>
+            </div>
+        `;
+        
+        grid.appendChild(card);
+    });
+
+    // Re-trigger entrance animations if you have them for new elements
+    if (typeof initEntranceAnimations === "function") {
+        initEntranceAnimations();
+    }
+}
+
+/**
+ * Searches through the local f1Races array
+ */
+function filterF1Circuits() {
+    const term = document.getElementById('circuitSearch').value.toLowerCase();
+    const filtered = f1Races.filter(race => 
+        race.Circuit.Location.country.toLowerCase().includes(term) ||
+        race.raceName.toLowerCase().includes(term) ||
+        race.Circuit.circuitName.toLowerCase().includes(term)
+    );
+    displayF1Races(filtered);
+}
