@@ -1726,5 +1726,118 @@ select {
     cursor: pointer;
 }
 
+/* ==========================================
+   --- F1 CALENDAR API PAGE STYLES ---
+   ========================================== */
+
+/* 1. Results Grid Layout */
+#calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    padding-bottom: 50px;
+}
+
+/* 2. Styling the Search Input to match your Williams theme */
+#circuitSearch {
+    width: 300px !important;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: 2px solid var(--primary-blue);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: var(--body-font);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#circuitSearch:focus {
+    border-color: var(--light-blue);
+    box-shadow: 0 0 15px rgba(0, 160, 223, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Placeholder color for dark background */
+#circuitSearch::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* 3. API Card Specific Enhancements */
+#calendarGrid .driver-card {
+    background: rgba(255, 255, 255, 0.05); /* Glassmorphism look */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+#calendarGrid .card-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Round Number Badge */
+#calendarGrid .stat-label {
+    background: var(--light-blue);
+    color: var(--dark-blue);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-family: var(--heading-font);
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+/* Race Title */
+#calendarGrid h3 {
+    font-family: var(--heading-font);
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* Data Text (Circuit, Location, Date) */
+#calendarGrid p {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #d0d0d0;
+}
+
+#calendarGrid p strong {
+    color: var(--light-blue);
+}
+
+/* 4. Loading & Error Message Styling */
+#calendarGrid p[style*="text-align: center"] {
+    grid-column: 1 / -1;
+    color: var(--light-blue);
+    font-family: var(--heading-font);
+    letter-spacing: 2px;
+    padding: 50px;
+}
+
+/* 5. The Fetch Button (Matches your view-btn) */
+#fetchBtn {
+    width: auto !important;
+    padding: 12px 30px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Mobile Fix for Search Bar */
+@media (max-width: 768px) {
+    #circuitSearch {
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+    #fetchBtn {
+        width: 100% !important;
+        margin-left: 0;
+    }
+}
 
 
