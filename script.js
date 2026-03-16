@@ -397,13 +397,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // ==========================================
 // --- 6. F1 CALENDAR API INTEGRATION ---
 // ==========================================
-
-/**
- * API ACTIVITY: F1 Race Calendar
- * Purpose: Fetch 2026 Grand Prix data using the public Jolpi (Ergast) API.
- * Requirements met: fetch(), JSON processing, Error Handling, and Dynamic Display.
- */
-
 // We use a global variable to store races so the search bar can filter them
 let f1Races = []; 
 
