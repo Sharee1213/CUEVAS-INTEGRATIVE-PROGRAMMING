@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Williams Fan Club - F1 Circuit Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="active">Home</a>
+            
+            <a href="apiF1calendar.html">Race Calendar</a>
+            
+            <div id="guest-links" style="display: inline;">
+                <a href="login.html">Login</a>
+            </div>
+            <button id="logoutBtn" class="delete-btn" style="display: none; margin-left: 10px;">Logout</button>
+        </div>
+    </nav>
+
+    <header class="section-title">
+        <h1>Global Grand Prix Circuits</h1>
+        <p>Explore the tracks where Williams Racing makes history.</p>
+    </header>
+
+    <main class="container">
+        <div class="admin-panel" style="text-align: center; margin-bottom: 30px;">
+            <input type="text" id="circuitSearch" placeholder="Search by Country (e.g. Monaco)...">
+            <button id="fetchBtn" class="view-btn">Load 2026 Calendar</button>
+        </div>
+
+        <div id="calendarGrid" class="stat-container">
+            <p style="text-align: center; width: 100%;">Click the button above to sync with the Pit Wall.</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
