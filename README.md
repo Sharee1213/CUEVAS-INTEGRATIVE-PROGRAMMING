@@ -102,12 +102,28 @@ I used ChatGPT, Google Gemini, and GitHub Copilot to assist with syntax suggesti
 🔹 **Learning Reflection**
 I learned that technology is a partnership of patience, and I realized that while AI has immense power, it is useless without my specific intent and human touch. Most importantly, I learned that being a beginner requires a specific kind of humility—the willingness to be wrong and the courage to keep refining my ideas until they finally match my vision. The most challenging part was managing the gap between my imagination and the technical reality.
 
+---
+
 ## ACTIVITY 6
 
 🔹 **Description**: This landing page is a dedicated platform for Williams Racing fans, designed to celebrate the team's rich Formula 1 heritage and document the "Williams Blue Era." It serves as a central hub for supporters to explore team history, view current driver profiles like Alex Albon and Carlos Sainz, and connect with the Fan Manager, Sharee Angela Cuevas. The project solves the need for a community-focused space where fans can unite to analyze races and cherish the legacy of one of motorsport's most iconic technical innovators.
 
 🔹 **API Used**: Jolpi/Ergast F1 API
-🔹 **Features**: Search by country, dynamic card generation, and error handling.
+- This API provides comprehensive historical and real-time data for the Formula 1 World Championship, including race schedules, circuit information, and constructor standings.
+
+🔹 **Features**:
+- Dynamic Race Calendar: Fetches and displays the 2026 F1 race schedule directly from the Pit Wall (API).
+- Circuit Search: Allows fans to filter upcoming races by country (e.g., Monaco, Japan) to find specific tracks.
+- Interactive UI/UX: Features a "Williams Blue" themed dashboard with glassmorphism effects and responsive card generation.
+- Real-time Error Handling: Includes custom messages and loading states to inform users of data sync status.
+
 🔹 **How to Use**: 
+- Navigate to the Calendar: Click on the "Race Calendar" link in the navigation bar. 
+- Sync Data: Click the "Load 2026 Calendar" button to fetch the latest race data from the API. 
+- Search Tracks: Use the search bar to type in a country name; the grid will automatically filter to show matching circuits. 
+- Explore Details: View the round number, circuit name, and race date displayed on the high-tech glassmorphism cards.
 
 🔹 **Challenges Encountered**:
+- CSS Linkage & Pathing: Experienced initial issues where the API page rendered without styles due to incorrect file pathing between the HTML and the main stylesheet.
+- Navbar Alignment: Struggled with Flexbox containers where navigation links and the brand title were overlapping or stacking incorrectly on desktop views. 
+- API Data Mapping: Ensuring the JavaScript class names (e.g., .driver-card) matched the CSS selectors exactly so the dynamically generated API data inherited the correct Williams theme styling.
