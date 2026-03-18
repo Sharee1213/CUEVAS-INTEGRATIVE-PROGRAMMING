@@ -461,41 +461,47 @@ async function fetchF1Calendar() {
 /**
  * Dynamically creates HTML cards for each race
  */
+/**
+ * Updated: Dynamically creates HTML cards for each race with a SAVE button
+ */
 function displayF1Races(races) {
     const grid = document.getElementById('calendarGrid');
     if (!grid) return;
 
-    grid.innerHTML = ""; // Clear the "Click to load" text
-
-    if (races.length === 0) {
-        grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No races found matching that search.</p>";
-        return;
-    }
+    grid.innerHTML = ""; 
 
     races.forEach(race => {
-        // Create the card element
         const card = document.createElement('div');
-        card.className = 'driver-card'; // This reuses your existing CSS styles
+        card.className = 'driver-card'; 
         
-        // Use the Williams team color (Blue) for the header
+        // Prepare the data object to be saved
+        const raceData = {
+            id: race.round, // Using round as a unique ID
+            name: race.raceName,
+            circuit: race.Circuit.circuitName,
+            location: `${race.Circuit.Location.locality}, ${race.Circuit.Location.country}`,
+            date: race.date
+        };
+
         card.innerHTML = `
             <div class="card-content" style="padding: 15px;">
                 <span style="font-size: 12px; font-weight: bold; color: #00A0E2;">ROUND ${race.round}</span>
                 <h3 style="margin: 10px 0; color: #fff;">${race.raceName}</h3>
                 <p><strong>🏁 Circuit:</strong> ${race.Circuit.circuitName}</p>
-                <p><strong>📍 Location:</strong> ${race.Circuit.Location.locality}, ${race.Circuit.Location.country}</p>
+                <p><strong>📍 Location:</strong> ${raceData.location}</p>
                 <p><strong>📅 Date:</strong> ${new Date(race.date).toDateString()}</p>
-                <a href="${race.url}" target="_blank" class="view-btn" style="display: block; text-align: center; margin-top: 15px; text-decoration: none;">Track Details</a>
+                
+                <button class="view-btn" style="width: 100%; margin-top: 10px; background: #28a745;" 
+                    onclick='saveRace(${JSON.stringify(raceData)})'>
+                    ⭐ Save to My Calendar
+                </button>
+
+                <a href="${race.url}" target="_blank" class="view-btn" style="display: block; text-align: center; margin-top: 5px; text-decoration: none;">Track Details</a>
             </div>
         `;
         
         grid.appendChild(card);
     });
-
-    // Re-trigger entrance animations if you have them for new elements
-    if (typeof initEntranceAnimations === "function") {
-        initEntranceAnimations();
-    }
 }
 
 /**
@@ -510,3 +516,25 @@ function filterF1Circuits() {
     );
     displayF1Races(filtered);
 }
+
+/**
+ * Logic to store race data in localStorage
+ */
+window.saveRace = function(raceData) {
+    // 1. Get existing data from localStorage (parse string to array)
+    let savedRaces = JSON.parse(localStorage.getItem("f1SavedRaces")) || [];
+
+    // 2. Prevent Duplicates: Check if the round ID already exists
+    const isDuplicate = savedRaces.some(race => race.id === raceData.id);
+
+    if (isDuplicate) {
+        alert("🏁 This race is already in your saved list!");
+        return;
+    }
+
+    // 3. Add new race and save back to localStorage (stringify array to string)
+    savedRaces.push(raceData);
+    localStorage.setItem("f1SavedRaces", JSON.stringify(savedRaces));
+
+    alert("✅ Race saved to your personal calendar!");
+};
