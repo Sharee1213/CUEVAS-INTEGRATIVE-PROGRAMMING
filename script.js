@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initSmoothScroll();
     initAdminLogic();
     initUserSearch();
+    fetchStandings();
 });
 
 // --- 1. ACCESS CONTROL & AUTHENTICATION ---
@@ -538,3 +539,139 @@ window.saveRace = function(raceData) {
 
     alert("✅ Race saved to your personal calendar!");
 };
+
+/**
+ * RELEVANT API INTEGRATION: Fetching Team Standings
+ * This supports the "Command Center" purpose by showing real-time rankings.
+ */
+async function fetchStandings() {
+    const container = document.getElementById('standingsList');
+    if (!container) return;
+
+    try {
+        const response = await fetch('https://api.jolpi.ca/ergast/f1/2026/constructorStandings.json');
+        const data = await response.json();
+        const standings = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
+
+        container.innerHTML = ""; 
+
+        standings.forEach(team => {
+            const isWilliams = team.Constructor.constructorId === "williams";
+            
+            const Row = `
+                <div class="stat-box" style="display: flex !important; flex-direction: row !important; align-items: center; justify-content: space-between; padding: 15px 25px; margin-bottom: 8px; border-left: 4px solid ${isWilliams ? '#00a0df' : 'rgba(255,255,255,0.1)'}; background: ${isWilliams ? 'rgba(0, 160, 223, 0.1)' : 'rgba(255,255,255,0.03)'}; border-radius: 8px; min-height: 60px; text-align: left;">
+                    <div style="flex: 0 0 50px; font-weight: bold; color: #00a0df; font-size: 1.2em;">P${team.position}</div>
+                    <div style="flex: 1; padding-left: 15px;">
+                        <span style="font-weight: 600; font-size: 1.1em; color: white;">${team.Constructor.name}</span>
+                        ${isWilliams ? '<span style="font-size: 0.6em; background: #00a0df; color: white; padding: 2px 6px; border-radius: 3px; margin-left: 8px; vertical-align: middle;">YOUR TEAM</span>' : ''}
+                    </div>
+                    <div style="flex: 0 0 100px; text-align: right;">
+                        <span style="font-size: 1.3em; font-weight: 800; color: white; display: block; line-height: 1;">${team.points}</span>
+                        <span style="font-size: 0.6em; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px;">Points</span>
+                    </div>
+                </div>`;
+            
+            container.insertAdjacentHTML('beforeend', Row);
+        }); // <-- FIX 1: Closes the .forEach loop
+
+    } catch (error) { // <-- FIX 2: Closes the try block and starts catch
+        console.error("API Connection Failed:", error);
+        container.innerHTML = `<p style="color: #ff4d4d;">⚠️ Error: Could not connect to the Pit Wall.</p>`;
+    } // <-- FIX 3: Closes the catch block
+}
+
+// Trigger the function
+document.addEventListener("DOMContentLoaded", fetchStandings);
+
+/**
+ * ADDITIONAL API: Open-Meteo (No Key Required)
+ * Fetches current temperature based on Track Coordinates
+ */
+async function getTrackWeather(lat, lon) {
+    try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+        const response = await fetch(url);
+        if (!response.ok) return null;
+        const data = await response.json();
+        return data.current_weather;
+    } catch (error) {
+        console.error("Weather Fetch Failed:", error);
+        return null;
+    }
+}
+
+/**
+ * FINAL INTEGRATED DISPLAY: F1 Data + Weather API + Navigation
+ */
+async function displayF1Races(races) {
+    const grid = document.getElementById('calendarGrid');
+    if (!grid) return;
+
+    grid.innerHTML = ""; 
+
+    for (const race of races) {
+        // 1. Coordinates for the Weather API
+        const lat = race.Circuit.Location.lat;
+        const lon = race.Circuit.Location.long;
+        const city = race.Circuit.Location.locality;
+        
+        // 2. Fetch the Weather
+        const weather = await getTrackWeather(lat, lon);
+        
+        let weatherHTML = `<p style="color: rgba(255,255,255,0.2); font-size: 0.7em; margin: 10px 0;">Weather unavailable</p>`;
+        
+        if (weather) {
+            const temp = Math.round(weather.temperature);
+            const isRaining = weather.weathercode >= 61; 
+            
+            weatherHTML = `
+                <div style="background: rgba(0, 160, 223, 0.1); padding: 12px; border-radius: 8px; margin: 12px 0; border: 1px solid rgba(0, 160, 223, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: bold; color: #fff; font-size: 1.1em;">${temp}°C</span>
+                        <span style="font-size: 0.75em; color: #00A0E2; font-weight: 800; letter-spacing: 1px;">
+                            ${isRaining ? "🌧️ WET TRACK" : "☀️ DRY TRACK"}
+                        </span>
+                    </div>
+                    <p style="font-size: 0.7em; margin-top: 5px; color: #888; text-transform: uppercase;">
+                        Wind: ${weather.windspeed}km/h | Strategy: ${temp > 22 ? 'Hard' : 'Soft'}
+                    </p>
+                </div>
+            `;
+        }
+
+        // 3. Combine everything into the card
+        const card = document.createElement('div');
+        card.className = 'driver-card'; 
+        
+        // Data object for the Save function
+        const raceData = {
+            id: race.round,
+            name: race.raceName,
+            circuit: race.Circuit.circuitName,
+            location: `${city}, ${race.Circuit.Location.country}`,
+            date: race.date
+        };
+
+        card.innerHTML = `
+            <div class="card-content" style="padding: 20px;">
+                <span style="font-size: 11px; font-weight: bold; color: #00A0E2; letter-spacing: 1px;">ROUND ${race.round}</span>
+                <h3 style="margin: 8px 0; color: #fff; font-size: 1.3em; line-height: 1.2;">${race.raceName}</h3>
+                <p style="font-size: 0.85em; color: #ccc; margin-bottom: 4px;"><strong>🏁</strong> ${race.Circuit.circuitName}</p>
+                <p style="font-size: 0.8em; color: #888;">📅 ${new Date(race.date).toDateString()}</p>
+                
+                ${weatherHTML}
+
+                <button class="view-btn" style="width: 100%; margin-top: 5px; background: #28a745; border: none; font-weight: bold;" 
+                    onclick='saveRace(${JSON.stringify(raceData)})'>
+                    ⭐ Save to My Calendar
+                </button>
+
+                <a href="${race.url}" target="_blank" class="view-btn" style="display: block; text-align: center; margin-top: 8px; text-decoration: none; background: rgba(255,255,255,0.1); color: white;">
+                    Track Details
+                </a>
+            </div>
+        `;
+        
+        grid.appendChild(card);
+    }
+}
