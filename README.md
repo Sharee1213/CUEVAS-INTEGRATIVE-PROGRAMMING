@@ -159,3 +159,22 @@ I used ChatGPT, Google Gemini, and GitHub Copilot to assist with syntax suggesti
 
 🔹 **Learning Reflection**
 I learned that technology is a partnership of patience, and I realized that while AI has immense power, it is useless without my specific intent and human touch. Most importantly, I learned that being a beginner requires a specific kind of humility—the willingness to be wrong and the courage to keep refining my ideas until they finally match my vision. The most challenging part was managing the gap between my imagination and the technical reality.
+
+---
+
+## ACTIVITY 8
+
+🔹 **Activity name**: API Refinement 
+
+🔹 **Project Purpose**: The Atlassian Williams Racing Fan Hub is a comprehensive digital "Command Center" for Formula 1 enthusiasts. It serves as a central platform to bridge the gap between team heritage and real-time race data, offering fans a secure portal to track constructor standings and upcoming Grand Prix events with professional-grade strategic insights.
+
+🔹 **API Used**: Primary API: Ergast (Jolpi) F1 API
+                Secondary API: Open-Meteo Weather API
+
+🔹 **Justification**: The Ergast F1 API provides the essential framework of the site by delivering official race schedules and team rankings. The Open-Meteo API is a critical addition because weather is the primary variable in F1 racing strategy; by providing live track conditions, the website allows fans to anticipate tire choices and race outcomes, effectively simulating a real-world "Pit Wall" environment.
+
+🔹 **Integration**: The API data is integrated into a dynamic, data-driven UI through the following methods:
+- Chained API Fetching: The system uses the latitude and longitude coordinates provided by the F1 API to automatically trigger a specific weather request for every circuit on the calendar.
+- Strategic Data Visualization: Instead of raw numbers, the UI displays "Strategy Hints" (e.g., suggesting Hard Compound tires for high temperatures) and "Wet Track" alerts based on real-time weather codes.
+- Interactive Race Cards: API data is mapped into custom-styled glassmorphism cards that include round details, circuit information, and current climate data.
+- Data Persistence: Users can interact with the API data by using the "Save to Calendar" feature, which utilizes localStorage to keep track of their most anticipated races across browser sessions.
